@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name         ScoDoc - Remplissage de notes
-// @namespace    http://tampermonkey.net/
-// @version      0.2
-// @description  Permet de remplir les notes depuis un fichier
-// @author       You
+// @namespace    http://scodoc.iut.u-cergy.fr/
+// @version      0.3
+// @description  Permet de remplir les notes depuis un fichier .csv ou .json
+// @author       IUT CY Paris Université
 // @match        http*://scodoc.iut.u-cergy.fr/*
 // @grant        none
 // ==/UserScript==
@@ -95,16 +95,33 @@ const manageFileUpload = (evtFile) => {
     if (listGrades.some((item) => Object.keys(item).length === 3)) {
       JSONColumnsNames = Object.keys(listGrades[0]);
 
-      fillGrades(listGrades);
-      Array.from(document.querySelectorAll(".note[value='']")).forEach(
-        (input) => {
-          input.focus();
-          input.value = "ATT";
-          input.blur();
-        }
-      );
-      document.querySelector("#grades_field").style.display = "none";
-      document.querySelector("#restart_container").style.display = "block";
+      const scodocReviewMaxGradeSet = document
+        .querySelector(".tf-ro-field.formnote_bareme")
+        .textContent.match(/\d+(\.\d+)?/)[0];
+
+      const moodleGradeCol = JSONColumnsNames.find((item) =>
+        item.toLowerCase().includes("note")
+      ).replace(",", ".");
+      const moodleReviewMaxGradeSet = moodleGradeCol.match(/\d+(\.\d+)?/)[0];
+
+      if (Number(moodleReviewMaxGradeSet) === Number(scodocReviewMaxGradeSet)) {
+        fillGrades(listGrades);
+        Array.from(document.querySelectorAll(".note[value='']")).forEach(
+          (input) => {
+            input.focus();
+            input.value = "ATT";
+            input.blur();
+          }
+        );
+        document.querySelector("#grades_field").style.display = "none";
+        document.querySelector("#restart_container").style.display = "block";
+      } else {
+        alert(`
+            La note maximale de votre évaluation sur ScoDoc (/${Number(scodocReviewMaxGradeSet)}) ne correspond pas à la note maximale de votre évaluation sur Moodle (/${Number(moodleReviewMaxGradeSet)}).\n
+            Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'entrez pas les notes de la bonne évaluation sur ScoDoc.
+        `);
+        resetTpl();
+      }
     } else {
       alert("Votre fichier ne contient pas trois colonnes.");
     }
@@ -168,9 +185,6 @@ const gradesUploadTpl = `
   script = d.createElement("script");
   script.type = "text/javascript";
   script.async = true;
-  script.onload = function () {
-    // remote script has loaded
-  };
   script.src = "https://danyellow.net/csv2json.js";
   d.getElementsByTagName("head")[0].appendChild(script);
 })(document);
