@@ -1,0 +1,27 @@
+{
+  "name": "scodoc",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scodoc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c config/rollup.js",
+    "code": "rollup -c config/rollup.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/plugin-proposal-nullish-coalescing-operator": "^7.12.1",
+    "@babel/plugin-proposal-optional-chaining": "^7.12.7",
+    "@babel/preset-env": "^7.12.11",
+    "@rollup/plugin-babel": "^5.2.2",
+    "@rollup/plugin-commonjs": "^17.0.0",
+    "@rollup/plugin-html": "^0.2.0",
+    "csvjson-json2csv": "^1.0.3",
+    "rollup": "^2.35.1",
+    "rollup-plugin-pug-html": "0.0.2"
+  },
+  "dependencies": {}
+}

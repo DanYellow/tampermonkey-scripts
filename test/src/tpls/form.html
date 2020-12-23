@@ -1,0 +1,84 @@
+<style>
+    .tp-ext-form-container {
+        font-family: Arial, Helvetica, sans-serif;
+        position: fixed;
+        background-color: white;
+        top: 12px;
+        right: 10px;
+        padding: 1.5em;
+        border: 2px solid #333333;
+        max-width: 450px;
+    }
+
+    .tp-ext-form-title {
+        font-weight: bold; 
+        border: 0; 
+        margin-bottom: 0; 
+        width: auto;
+    }
+
+    .tp-ext-valid-file {
+        color: green; 
+        display: none;
+    }
+
+    .tp-ext-empty-values-list-choices {
+        display: flex;
+        justify-content: space-around;
+        list-style-type: none;
+        flex-direction: column;
+        padding-left: 0;
+    }
+    .tp-ext-empty-values-list-choices label { 
+        display: flex;
+    }
+</style>
+<form>
+    <fieldset class="tp-ext-form-container" id="tp-ext-form-container">
+        <legend class="tp-ext-form-title">
+            Remplisseur automatique de notes
+        </legend>
+
+        <p>Prenez bien soin à respecter les règles suivantes :</p>
+        <ul>
+            <li>Format de fichier .csv ou .json</li>
+            <li>
+                Le fichier (.csv ou .json)
+                <b>doit contenir trois colonnes</b>. La première doit représenter les noms, la seconde les prénoms et la
+                dernière les notes
+            </li>
+        </ul>
+        <p>A noter : </p>
+        <ul>
+            <li>La note la plus haute sera prise en compte</li>
+            <li>Si une absence/note neutralisée/note en attente sera transformée en vraie note l'inverse est faux
+            </li>
+        </ul>
+        <hr>
+
+        <p style="font-size: 1.2rem; font-weight: bold;">Gestion des notes absentes </p>
+        <ul class="tp-ext-empty-values-list-choices">
+            <li>
+                <label id="att">
+                    <span>Mettre les notes en attente (ATT)</span>
+                    <input type="radio" name="empty_val" id="att" value="ATT" checked />
+                </label>
+            </li>
+            <li>
+                <label id="exc">
+                    <span>Excuser les notes (EXC)</span>
+                    <input type="radio" name="empty_val" id="exc" value="EXC" />
+                </label>
+            </li>
+        </ul>
+
+        <label id="grades_field">
+            <span>Sélectionnez le fichier de notes</span>
+            <input type="file" name="grades_file" id="grades_file" accept=".csv, .json" />
+        </label>
+        <p class="tp-ext-valid-file" id="restart_container">
+            Fichier valide. Notes intégrées.
+            <button type="button" id="restart_btn">Recommencer ?</button>
+        </p>
+    </fieldset>
+</form>

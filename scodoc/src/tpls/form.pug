@@ -1,0 +1,32 @@
+include form.style.pug
+| <form>
+|     <fieldset class="tp-ext-form-container" id="tp-ext-form-container">
+|         <legend class="tp-ext-form-title">
+|             Remplisseur automatique de notes
+|         </legend>
+| 
+|         <p>Prenez bien soin à respecter les règles suivantes :</p>
+|         <ul style="max-width: 450px;">
+|             <li>Format de fichier .csv ou .json</li>
+|             <li>
+|                 Le fichier (.csv ou .json)
+|                 <b>doit contenir trois colonnes</b>. La première doit représenter les noms, la seconde les prénoms et la
+|                 dernière les notes
+|             </li>
+|         </ul>
+|         <p>A noter : </p>
+|         <ul style="max-width: 450px;">
+|             <li>La note la plus haute sera prise en compte</li>
+|             <li>Si une absence/note neutralisée/note en attente sera transformée en vraie note l'inverse est faux
+|             </li>
+|         </ul>
+|         <label id="grades_field">
+|             <span>Sélectionnez le fichier de notes</span>
+|             <input type="file" name="grades_file" id="grades_file" accept=".csv, .json" />
+|         </label>
+|         <p class="tp-ext-valid-file" id="restart_container">
+|             Fichier valide. Notes intégrées.
+|             <button type="button" id="restart_btn">Recommencer ?</button>
+|         </p>
+|     </fieldset>
+| </form>

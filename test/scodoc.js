@@ -51,7 +51,7 @@ const fillGrades = (listGrades) => {
       'input[class^="note"]'
     );
     if (currentInput) {
-      const formattedGrade = item[gradesKey].replace(",", ".");
+      const formattedGrade = String(item[gradesKey]).replace(",", ".");
       const isNotAValidGrade = Number.isNaN(Number(formattedGrade));
       const isAValidGrade = !isNotAValidGrade;
 
@@ -117,7 +117,11 @@ const manageFileUpload = (evtFile) => {
         document.querySelector("#restart_container").style.display = "block";
       } else {
         alert(`
-            La note maximale de votre évaluation sur ScoDoc (/${Number(scodocReviewMaxGradeSet)}) ne correspond pas à la note maximale de votre évaluation sur Moodle (/${Number(moodleReviewMaxGradeSet)}).\n
+            La note maximale de votre évaluation sur ScoDoc (/${Number(
+              scodocReviewMaxGradeSet
+            )}) ne correspond pas à la note maximale de votre évaluation sur Moodle (/${Number(
+          moodleReviewMaxGradeSet
+        )}).\n
             Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'entrez pas les notes de la bonne évaluation sur ScoDoc.
         `);
         resetTpl();
@@ -136,7 +140,8 @@ const resetTpl = () => {
 };
 
 const gradesUploadTpl = `
-        <fieldset
+  <form>
+    <fieldset
           style="
             font-family: Arial, Helvetica, sans-serif;
             position: fixed;
@@ -146,40 +151,41 @@ const gradesUploadTpl = `
             padding: 1.5em;
             border: 2px solid #333333;
           "
-        >
-          <legend style="font-weight: bold; border: 0; margin-bottom: 0; width: auto">
-            Remplisseur automatique de notes
-          </legend>
+    >
+      <legend style="font-weight: bold; border: 0; margin-bottom: 0; width: auto">
+        Remplisseur automatique de notes
+      </legend>
   
-    <p>Prenez bien soin à respecter les règles suivantes :</p>
-    <ul style="max-width: 450px;">
-      <li>Format de fichier .csv ou .json</li>
-      <li>
-        Le fichier (.csv ou .json)
-        <b>doit contenir trois colonnes</b>. La première doit représenter les noms, la seconde les prénoms et la dernière les notes
-      </li>
-    </ul>
-    <p>A noter : </p>
-    <ul style="max-width: 450px;">
-      <li>La note la plus haute sera prise en compte</li>
-      <li>Si une absence/note neutralisée/note en attente sera transformée en vraie note l'inverse est faux
-      </li>
-    </ul>
-    <label id="grades_field">
-      <span>Sélectionnez le fichier de notes</span>
-      <input
-        type="file"
-        name="grades_file"
-        id="grades_file"
-        accept=".csv, .json"
-      />
-    </label>
-    <p style="color: green; display: none" id="restart_container">
-      Fichier valide. Notes intégrées.
-      <button type="button" id="restart_btn">Recommencer ?</button>
-    </p>
+      <p>Prenez bien soin à respecter les règles suivantes :</p>
+      <ul style="max-width: 450px;">
+        <li>Format de fichier .csv ou .json</li>
+        <li>
+          Le fichier (.csv ou .json)
+          <b>doit contenir trois colonnes</b>. La première doit représenter les noms, la seconde les prénoms et la dernière les notes
+        </li>
+      </ul>
+      <p>A noter : </p>
+      <ul style="max-width: 450px;">
+        <li>La note la plus haute sera prise en compte</li>
+        <li>Si une absence/note neutralisée/note en attente sera transformée en vraie note l'inverse est faux
+        </li>
+      </ul>
+      <label id="grades_field">
+        <span>Sélectionnez le fichier de notes</span>
+        <input
+          type="file"
+          name="grades_file"
+          id="grades_file"
+          accept=".csv, .json"
+        />
+      </label>
+      <p style="color: green; display: none" id="restart_container">
+        Fichier valide. Notes intégrées.
+        <button type="button" id="restart_btn">Recommencer ?</button>
+      </p>
     </fieldset>
-    `;
+  </form>
+`;
 
 (function (d, script) {
   script = d.createElement("script");
