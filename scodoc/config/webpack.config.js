@@ -44,8 +44,7 @@ module.exports = {
 
                     let logRows = fs.readFileSync(pathToFile).toString().split('\n');
                 
-                    logRows.unshift(`
-// ==UserScript==
+                    logRows.unshift(`// ==UserScript==
 // @name         ScoDoc - Remplissage de notes
 // @namespace    http://scodoc.iut.u-cergy.fr/
 // @version      0.4
@@ -53,7 +52,10 @@ module.exports = {
 // @author       IUT CY Paris Université
 // @match        http*://scodoc.iut.u-cergy.fr/*
 // @grant        none
-// ==/UserScript==`);
+// ==/UserScript==
+
+/* eslint-disable */
+`);
                     fs.writeFileSync(pathToFile, logRows.join('\n'));
                 });
             },
