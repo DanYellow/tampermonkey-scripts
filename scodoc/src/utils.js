@@ -4,6 +4,7 @@ const defaultJSONColumnsNames = ['Nom', 'Prénom', 'Notes'];
 let JSONColumnsNames = defaultJSONColumnsNames;
 
 const fillGrades = (listGrades, dom) => {
+    // File headers
     const lastNameKey = JSONColumnsNames[0];
     const firstNameKey = JSONColumnsNames[1];
     const gradesKey = JSONColumnsNames[2];
@@ -13,20 +14,26 @@ const fillGrades = (listGrades, dom) => {
             const studentNameCell = el.getElementsByClassName(
                 'tf-fieldlabel'
             )[0];
+
+            // Data from scodoc
             const cellText = studentNameCell.textContent
                 .normalize('NFD')
                 .replace(/[\u0300-\u036f]/g, '')
+                .replace('-', ' ')
                 .toLowerCase();
+
             const isFirstNameMatched = cellText.includes(
                 item[firstNameKey]
                     .normalize('NFD')
                     .replace(/[\u0300-\u036f]/g, '')
+                    .replace('-', ' ')
                     .toLowerCase()
             );
             const isLastNameMatched = cellText.includes(
                 item[lastNameKey]
                     .normalize('NFD')
                     .replace(/[\u0300-\u036f]/g, '')
+                    .replace('-', ' ')
                     .toLowerCase()
             );
 

@@ -1,6 +1,5 @@
 const path = require('path');
-const webpack = require('webpack');
-const exec = require('child_process').exec;
+const package = require("../package.json");
 const fs = require('fs');
 
 module.exports = {
@@ -30,7 +29,7 @@ module.exports = {
         ],
     },
     optimization: {
-        minimize: true,
+        minimize: false,
     },
     plugins: [
         {
@@ -47,7 +46,7 @@ module.exports = {
                     logRows.unshift(`// ==UserScript==
 // @name         ScoDoc - Remplissage de notes
 // @namespace    http://scodoc.iut.u-cergy.fr/
-// @version      0.4
+// @version      ${package.version}
 // @description  Permet de remplir les notes depuis un fichier .csv ou .json
 // @author       IUT CY Paris Université
 // @match        http*://scodoc.iut.u-cergy.fr/*
