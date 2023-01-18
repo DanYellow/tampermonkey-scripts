@@ -35,13 +35,20 @@ module.exports = {
         {
             apply: compiler => {
                 compiler.hooks.afterEmit.tap('AfterEmitPlugin', compilation => {
-                    let pathToFile = path.join(
+                    const pathToFile = path.join(
                         __dirname,
                         '../dist',
                         'main.js'
                     );
 
-                    let logRows = fs.readFileSync(pathToFile).toString().split('\n');
+                    const pathToTxtFile = path.join(
+                        __dirname,
+                        '../dist',
+                        'main.js.txt'
+                    );
+                    
+
+                    const logRows = fs.readFileSync(pathToFile).toString().split('\n');
                 
                     logRows.unshift(`// ==UserScript==
 // @name         ScoDoc - Remplissage de notes
@@ -56,6 +63,7 @@ module.exports = {
 /* eslint-disable */
 `);
                     fs.writeFileSync(pathToFile, logRows.join('\n'));
+                    fs.copyFile(pathToFile, pathToTxtFile, () => {})
                 });
             },
         },

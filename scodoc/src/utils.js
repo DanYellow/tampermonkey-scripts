@@ -9,6 +9,8 @@ const fillGrades = (listGrades, dom) => {
     const firstNameKey = JSONColumnsNames[1];
     const gradesKey = JSONColumnsNames[2];
 
+    const specialCharsRegex = /[\u0300-\u036f]/g;
+
     listGrades.forEach(item => {
         const currentStudentRow = dom.listGradesRows.find(el => {
             const studentNameCell = el.getElementsByClassName(
@@ -18,29 +20,24 @@ const fillGrades = (listGrades, dom) => {
             // Data from scodoc
             const cellText = studentNameCell.textContent
                 .normalize('NFD')
-                .replaceAll(/[\u0300-\u036f]/g, '')
+                .replaceAll(specialCharsRegex, '')
                 .replaceAll('-', ' ')
                 .toLowerCase();
             
-
             const cleanedLastName = item[lastNameKey]
                 .normalize('NFD')
-                .replaceAll(/[\u0300-\u036f]/g, '')
+                .replaceAll(specialCharsRegex, '')
                 .replaceAll('-', ' ')
                 .toLowerCase();
+
             const cleanedFirstName = item[firstNameKey]
                 .normalize('NFD')
-                .replaceAll(/[\u0300-\u036f]/g, '')
+                .replaceAll(specialCharsRegex, '')
                 .replaceAll('-', ' ')
                 .toLowerCase();
 
-                console.log("cellText", cellText)
-                console.log("cleanedFirstName", cleanedFirstName)
-                console.log("cleanedLastName", cleanedLastName)
-                console.log("------")
-
-            const isFirstNameMatched = cellText.includes(cleanedFirstName);
-            const isLastNameMatched = cellText.includes(cleanedLastName);
+            const isFirstNameMatched = cleanedFirstName.split(" ").some((item) => cellText.includes(item));
+            const isLastNameMatched = cleanedLastName.split(" ").some((item) => cellText.includes(item))  
 
             return isFirstNameMatched && isLastNameMatched;
         });
