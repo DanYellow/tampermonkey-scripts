@@ -18,24 +18,29 @@ const fillGrades = (listGrades, dom) => {
             // Data from scodoc
             const cellText = studentNameCell.textContent
                 .normalize('NFD')
-                .replace(/[\u0300-\u036f]/g, '')
-                .replace('-', ' ')
+                .replaceAll(/[\u0300-\u036f]/g, '')
+                .replaceAll('-', ' ')
+                .toLowerCase();
+            
+
+            const cleanedLastName = item[lastNameKey]
+                .normalize('NFD')
+                .replaceAll(/[\u0300-\u036f]/g, '')
+                .replaceAll('-', ' ')
+                .toLowerCase();
+            const cleanedFirstName = item[firstNameKey]
+                .normalize('NFD')
+                .replaceAll(/[\u0300-\u036f]/g, '')
+                .replaceAll('-', ' ')
                 .toLowerCase();
 
-            const isFirstNameMatched = cellText.includes(
-                item[firstNameKey]
-                    .normalize('NFD')
-                    .replace(/[\u0300-\u036f]/g, '')
-                    .replace('-', ' ')
-                    .toLowerCase()
-            );
-            const isLastNameMatched = cellText.includes(
-                item[lastNameKey]
-                    .normalize('NFD')
-                    .replace(/[\u0300-\u036f]/g, '')
-                    .replace('-', ' ')
-                    .toLowerCase()
-            );
+                console.log("cellText", cellText)
+                console.log("cleanedFirstName", cleanedFirstName)
+                console.log("cleanedLastName", cleanedLastName)
+                console.log("------")
+
+            const isFirstNameMatched = cellText.includes(cleanedFirstName);
+            const isLastNameMatched = cellText.includes(cleanedLastName);
 
             return isFirstNameMatched && isLastNameMatched;
         });
