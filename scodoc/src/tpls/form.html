@@ -32,6 +32,9 @@
     .tp-ext-empty-values-list-choices label { 
         display: flex;
     }
+    .tp-text-bold {
+        font-weight: bold; 
+    }
 </style>
 <form>
     <fieldset class="tp-ext-form-container" id="tp-ext-form-container">
@@ -44,15 +47,15 @@
             <li>Format de fichier .csv ou .json</li>
             <li>
                 Le fichier (.csv ou .json)
-                <b>doit contenir trois colonnes</b>. La première doit représenter les noms, la seconde les prénoms et la
+                <span class="tp-text-bold">doit contenir trois colonnes</span>. La première doit représenter les noms, la seconde les prénoms et la
                 dernière les notes
             </li>
         </ul>
         <p>A noter : </p>
         <ul>
             <li>La note la plus haute sera prise en compte</li>
-            <li>Si une absence/note neutralisée/note en attente sera transformée en vraie note l'inverse est faux
-            </li>
+            <li>Si une absence/note neutralisée/note en attente sera transformée en vraie note l'inverse est faux</li>
+            <li class="tp-text-bold">Le fichier doit être encodé en Unicode UTF-8. Sinon ça ne fonctionnera.</li>
         </ul>
         <hr>
 

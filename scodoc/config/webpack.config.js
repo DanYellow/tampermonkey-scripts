@@ -1,5 +1,5 @@
 const path = require('path');
-const package = require("../package.json");
+const package = require('../package.json');
 const fs = require('fs');
 
 module.exports = {
@@ -35,6 +35,13 @@ module.exports = {
         {
             apply: compiler => {
                 compiler.hooks.afterEmit.tap('AfterEmitPlugin', compilation => {
+                    let today = new Date();
+                    const dd = String(today.getDate()).padStart(2, '0');
+                    const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    const yyyy = today.getFullYear();
+                    today = dd + '/' + mm + '/' + yyyy;
+
+
                     const pathToFile = path.join(
                         __dirname,
                         '../dist',
@@ -46,10 +53,12 @@ module.exports = {
                         '../dist',
                         'main.js.txt'
                     );
-                    
 
-                    const logRows = fs.readFileSync(pathToFile).toString().split('\n');
-                
+                    const logRows = fs
+                        .readFileSync(pathToFile)
+                        .toString()
+                        .split('\n');
+
                     logRows.unshift(`// ==UserScript==
 // @name         ScoDoc - Remplissage de notes
 // @namespace    http://scodoc.iut.u-cergy.fr/
@@ -58,12 +67,13 @@ module.exports = {
 // @author       IUT CY Paris Université
 // @match        http*://scodoc.iut.u-cergy.fr/*
 // @grant        none
+// @date      ${today}
 // ==/UserScript==
 
 /* eslint-disable */
 `);
                     fs.writeFileSync(pathToFile, logRows.join('\n'));
-                    fs.copyFile(pathToFile, pathToTxtFile, () => {})
+                    fs.copyFile(pathToFile, pathToTxtFile, () => {});
                 });
             },
         },

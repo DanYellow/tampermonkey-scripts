@@ -17,7 +17,7 @@ import formTpl from './tpls/form.html';
     delegateEvtHandler(document, 'change', '#grades_file', e => {
         const valForMissingGrade =
             document.querySelector('input[name="empty_val"]:checked').value ||
-            'ATT';
+            'ABS';
         manageFileUpload({
             target: e,
             valForMissingGrade,
