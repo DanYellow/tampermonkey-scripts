@@ -5,6 +5,7 @@ import formTpl from './tpls/form.html';
     const DOM = {
         listGradesRows: Array.from(document.querySelectorAll('tr.etud_elem')),
         formContainer: document.getElementById('tp-ext-form-container'),
+        maxGrade: document.querySelector('.tf-ro-field.formnote_bareme')
     };
 
     if (DOM.listGradesRows.length === 0 && !DOM.formContainer) {

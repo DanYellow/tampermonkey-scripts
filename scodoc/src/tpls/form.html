@@ -1,6 +1,6 @@
 <style>
     .tp-ext-form-container {
-        font-family: Arial, Helvetica, sans-serif;
+        font-family: Helvetica, Arial, sans-serif;
         position: fixed;
         background-color: white;
         top: 12px;
@@ -8,17 +8,19 @@
         padding: 1.5em;
         border: 2px solid #333333;
         max-width: 450px;
+        overflow: hidden;
+        transition: height 0.2s ease-out;
     }
 
     .tp-ext-form-title {
-        font-weight: bold; 
-        border: 0; 
-        margin-bottom: 0; 
+        font-weight: bold;
+        border: 0;
+        margin-bottom: 0;
         width: auto;
     }
 
     .tp-ext-valid-file {
-        color: green; 
+        color: green;
         display: none;
     }
 
@@ -29,14 +31,19 @@
         flex-direction: column;
         padding-left: 0;
     }
-    .tp-ext-empty-values-list-choices label { 
+    .tp-ext-empty-values-list-choices label {
         display: flex;
     }
     .tp-text-bold {
-        font-weight: bold; 
+        font-weight: bold;
+    }
+
+    .tp-ext-form-container-hidden {
+        height: 0;
+        padding-bottom: 0;
     }
 </style>
-<form>
+<form enctype="multipart/form-data; charset=utf-8">
     <fieldset class="tp-ext-form-container" id="tp-ext-form-container">
         <legend class="tp-ext-form-title">
             Remplisseur automatique de notes
@@ -44,27 +51,42 @@
 
         <p>Prenez bien soin à respecter les règles suivantes :</p>
         <ul>
-            <li>Format de fichier .csv ou .json</li>
+            <li>Format de fichier .csv</li>
             <li>
-                Le fichier (.csv ou .json)
-                <span class="tp-text-bold">doit contenir trois colonnes</span>. La première doit représenter les noms, la seconde les prénoms et la
-                dernière les notes
+                Le fichier (.csv)
+                <span class="tp-text-bold">doit contenir trois colonnes</span>.
+                La première doit représenter les noms, la seconde les prénoms et
+                la dernière les notes
             </li>
         </ul>
-        <p>A noter : </p>
+        <p>A noter :</p>
         <ul>
             <li>La note la plus haute sera prise en compte</li>
-            <li>Si une absence/note neutralisée/note en attente sera transformée en vraie note l'inverse est faux</li>
-            <li class="tp-text-bold">Le fichier doit être encodé en Unicode UTF-8. Sinon ça ne fonctionnera.</li>
+            <li>
+                Si une absence/note neutralisée/note en attente sera transformée
+                en vraie note l'inverse est faux
+            </li>
+            <li class="tp-text-bold">
+                Le fichier doit être encodé en Unicode UTF-8. Sinon ça ne
+                fonctionnera.
+            </li>
         </ul>
-        <hr>
+        <hr />
 
-        <p style="font-size: 1.2rem; font-weight: bold;">Gestion des notes absentes </p>
+        <p style="font-size: 1.2rem; font-weight: bold;">
+            Gestion des notes absentes
+        </p>
         <ul class="tp-ext-empty-values-list-choices">
             <li>
                 <label id="att">
-                    <span>Mettre les notes en attente (ATT)</span>
-                    <input type="radio" name="empty_val" id="att" value="ATT" checked />
+                    <span>Mettre les notes en absent (ABS)</span>
+                    <input
+                        type="radio"
+                        name="empty_val"
+                        id="att"
+                        value="ABS"
+                        checked
+                    />
                 </label>
             </li>
             <li>
@@ -77,7 +99,12 @@
 
         <label id="grades_field">
             <span>Sélectionnez le fichier de notes</span>
-            <input type="file" name="grades_file" id="grades_file" accept=".csv, .json" />
+            <input
+                type="file"
+                name="grades_file"
+                id="grades_file"
+                accept=".csv"
+            />
         </label>
         <p class="tp-ext-valid-file" id="restart_container">
             Fichier valide. Notes intégrées.

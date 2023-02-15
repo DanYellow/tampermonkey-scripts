@@ -1,4 +1,5 @@
 import csv2json from 'csvjson-csv2json';
+import jschardet from 'jschardet';
 
 const defaultJSONColumnsNames = ['Nom', 'Prénom', 'Notes'];
 let JSONColumnsNames = defaultJSONColumnsNames;
@@ -23,21 +24,24 @@ const fillGrades = (listGrades, dom) => {
                 .replaceAll(specialCharsRegex, '')
                 .replaceAll('-', ' ')
                 .toLowerCase();
-            
+
             const cleanedLastName = item[lastNameKey]
                 .normalize('NFD')
                 .replaceAll(specialCharsRegex, '')
                 .replaceAll('-', ' ')
                 .toLowerCase();
-
             const cleanedFirstName = item[firstNameKey]
                 .normalize('NFD')
                 .replaceAll(specialCharsRegex, '')
                 .replaceAll('-', ' ')
                 .toLowerCase();
 
-            const isFirstNameMatched = cleanedFirstName.split(" ").some((item) => cellText.includes(item));
-            const isLastNameMatched = cleanedLastName.split(" ").some((item) => cellText.includes(item))  
+            const isFirstNameMatched = cleanedFirstName
+                .split(' ')
+                .some(item => cellText.includes(item));
+            const isLastNameMatched = cleanedLastName
+                .split(' ')
+                .some(item => cellText.includes(item));
 
             return isFirstNameMatched && isLastNameMatched;
         });
@@ -46,10 +50,10 @@ const fillGrades = (listGrades, dom) => {
             return;
         }
 
-        const currentInput = currentStudentRow.querySelector(
+        const currentStudentRowInput = currentStudentRow.querySelector(
             'input[class^="note"]'
         );
-        if (currentInput) {
+        if (currentStudentRowInput) {
             const formattedGrade = String(item[gradesKey]).replace(',', '.');
             const isNotAValidGrade = Number.isNaN(Number(formattedGrade));
             const isAValidGrade = !isNotAValidGrade;
@@ -57,23 +61,14 @@ const fillGrades = (listGrades, dom) => {
             const grade = isNotAValidGrade
                 ? item[gradesKey]
                 : Number(formattedGrade);
-            currentInput.focus();
-
-            const doesNeedToUpdateGrade =
-                isAValidGrade && grade < Number(currentInput.value);
-
-            // The current grade is less than the previous one AND it's a number
-            // we stop here
-            if (doesNeedToUpdateGrade) {
-                return;
-            }
+                currentStudentRowInput.focus();
 
             if (isAValidGrade) {
-                currentInput.value = grade;
+                currentStudentRowInput.value = grade;
             } else {
-                currentInput.value = blankVal;
+                currentStudentRowInput.value = blankVal;
             }
-            currentInput.blur();
+            currentStudentRowInput.blur();
         }
     });
 };
@@ -84,72 +79,101 @@ const resetTpl = () => {
     document.querySelector('#restart_container').style.display = 'none';
 };
 
-const manageFileUpload = ({target: evtFile, valForMissingGrade, dom}) => {
+// We check if the grade set in
+const isScodocMaxGradeMatchWithFileMaxGrade = dom => {
+    const scodocMaxGrade = dom.maxGrade.textContent.match(/\d+(\.\d+)?/)[0];
+
+    const fileGradeCol = JSONColumnsNames.find(item =>
+        item.toLowerCase().includes('note')
+    ).replace(',', '.');
+    const fileMaxGrade = fileGradeCol.match(/\d+(\.\d+)?/)[0];
+
+    return {
+        isMatching: Number(fileMaxGrade) === Number(scodocMaxGrade),
+        scodocMaxGrade,
+        fileMaxGrade,
+    };
+};
+
+const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
     const file = evtFile.target.files[0];
+
     const name = file.name;
     const lastDot = name.lastIndexOf('.');
-    const allowedFormats = ['csv', 'json'];
+    const listAllowedFormats = ['csv']; // , 'json'
 
     const ext = name.substring(lastDot + 1);
 
     const reader = new FileReader();
-    reader.onload = e => {
-        let listGrades = e.target.result;
-        if (allowedFormats.includes(ext)) {
+    reader.onload = eRaw => {
+        const charset = jschardet.detect(eRaw.target.result);
+
+        if (charset.encoding.toLowerCase() != 'utf-8') {
+            alert(
+                'Votre fichier doit être encodé en UTF-8. Veuillez effectuer ce changement.'
+            );
+            resetTpl();
+            return;
+        }
+
+        reader.readAsText(file);
+        reader.onload = e => {
+            let listGrades = [];
+
+            if (!listAllowedFormats.includes(ext)) {
+                alert(
+                    `Votre fichier n'est pas au format ${listAllowedFormats.join(
+                        ' ou '
+                    )}`
+                );
+                return;
+            }
+
             listGrades = csv2json(e.target.result, {
                 parseNumbers: true,
             });
-        }
 
-        if (listGrades.some(item => Object.keys(item).length === 3)) {
+            if (listGrades.some(item => Object.keys(item).length !== 3)) {
+                alert('Votre fichier ne contient pas que trois colonnes.');
+                return;
+            }
+
             JSONColumnsNames = Object.keys(listGrades[0]);
 
-            const scodocReviewMaxGradeSet = document
-                .querySelector('.tf-ro-field.formnote_bareme')
-                .textContent.match(/\d+(\.\d+)?/)[0];
+            const gradesComparisonInfos = isScodocMaxGradeMatchWithFileMaxGrade(
+                dom
+            );
+            if (!gradesComparisonInfos.isMatching) {
+                alert(`
+La note maximale de votre évaluation sur ScoDoc (/${Number(
+                    gradesComparisonInfos.scodocMaxGrade
+                )}) ne correspond pas à la note maximale de votre fichier d'évaluation (/${Number(
+                    gradesComparisonInfos.fileMaxGrade
+                )}).\n
+Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'entrez pas les notes de la bonne évaluation sur ScoDoc.
+                `);
+                resetTpl();
+                return;
+            }
 
-            const moodleGradeCol = JSONColumnsNames.find(item =>
-                item.toLowerCase().includes('note')
-            ).replace(',', '.');
-            const moodleReviewMaxGradeSet = moodleGradeCol.match(
-                /\d+(\.\d+)?/
-            )[0];
-
-            if (
-                Number(moodleReviewMaxGradeSet) ===
-                Number(scodocReviewMaxGradeSet)
-            ) {
-                fillGrades(listGrades, dom);
-                Array.from(
-                    document.querySelectorAll(".note[value='']")
-                ).forEach(input => {
+            fillGrades(listGrades, dom);
+            Array.from(document.querySelectorAll(".note[value='']")).forEach(
+                input => {
                     input.focus();
                     input.value = valForMissingGrade;
                     input.blur();
-                });
-                document.querySelector('#grades_field').style.display = 'none';
-                document.querySelector('#restart_container').style.display =
-                    'block';
-            } else {
-                alert(`
-              La note maximale de votre évaluation sur ScoDoc (/${Number(
-                  scodocReviewMaxGradeSet
-              )}) ne correspond pas à la note maximale de votre évaluation sur Moodle (/${Number(
-                    moodleReviewMaxGradeSet
-                )}).\n
-              Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'entrez pas les notes de la bonne évaluation sur ScoDoc.
-          `);
-                resetTpl();
-            }
-        } else {
-            alert('Votre fichier ne contient pas trois colonnes.');
-        }
+                }
+            );
+            document.querySelector('#grades_field').style.display = 'none';
+            document.querySelector('#restart_container').style.display =
+                'block';
+        };
     };
-    reader.readAsText(file);
+    reader.readAsBinaryString(file);
 };
 
 const delegateEvtHandler = (el, evt, sel, handler) => {
-    el.addEventListener(evt, function(event) {
+    el.addEventListener(evt, function (event) {
         let t = event.target;
         while (t && t !== this) {
             if (t.matches(sel)) {
@@ -158,6 +182,6 @@ const delegateEvtHandler = (el, evt, sel, handler) => {
             t = t.parentNode;
         }
     });
-}
+};
 
 export { resetTpl, manageFileUpload, delegateEvtHandler };
