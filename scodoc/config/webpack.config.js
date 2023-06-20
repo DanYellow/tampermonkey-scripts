@@ -61,11 +61,11 @@ module.exports = {
 
                     logRows.unshift(`// ==UserScript==
 // @name         ScoDoc - Remplissage de notes
-// @namespace    http://scodoc.iut.u-cergy.fr/
+// @namespace    http://scodoc.iut.cyu.fr/
 // @version      ${package.version}
 // @description  Permet de remplir les notes depuis un fichier .csv ou .json
 // @author       IUT CY Paris Université
-// @match        http*://scodoc.iut.u-cergy.fr/*
+// @match        http*://scodoc.iut.cyu.fr/*
 // @grant        none
 // @date      ${today}
 // ==/UserScript==
