@@ -1,5 +1,5 @@
 import { resetTpl, manageFileUpload, delegateEvtHandler } from './utils';
-import formTpl from './tpls/form.html';
+import formTpl from './tpls/form.html?raw';
 
 (function () {
     const DOM = {
