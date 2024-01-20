@@ -23,7 +23,7 @@ const listAuthorizedSites = [
     "https://*.tiktok.com/@*",
 ]
 
-browser.menus.create(
+chrome.contextMenus.create(
   {
     id: "url-modifier-discord",
     title: "Copier pour Discord",
@@ -33,18 +33,16 @@ browser.menus.create(
   }
 );
 
-browser.menus.onClicked.addListener((info, tab) => {
+chrome.contextMenus.onClicked.addListener((info, tab) => {
   switch (info.menuItemId) {
     case "url-modifier-discord":
-        browser.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+        chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
             const currentTab = tabs[0];
             const modifiedURL = updateURLForDiscord(currentTab.url);
-            browser.tabs.sendMessage(currentTab.id, {
+            chrome.tabs.sendMessage(currentTab.id, {
                 message: "copyURL",
                 textToCopy: modifiedURL
-            }, (res) => {
-                console.log("ff" + res);
-            })
+            }, () => {})
         });
     break;
   }
