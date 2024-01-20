@@ -17,8 +17,6 @@ export default {
             name: 'ScodocFillingGrades',
             fileName: libName,
             formats: ['umd'],
-
-            // fileName: format => `scodoc_filling_grades.${format}.js`,
         },
         rollupOptions: {
             output: {
