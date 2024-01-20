@@ -9,6 +9,9 @@ const updateURLForDiscord = (currentURL) => {
         case currentURL.includes("tiktok"):
             modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1vxtiktok.com");
         break;
+        case currentURL.includes("reddit"):
+            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1vxreddit.com");
+        break;
         default:
             modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1fxtwitter.com");
         break;
@@ -21,6 +24,7 @@ const listAuthorizedSites = [
     "https://*.twitter.com/*/status/*",
     "https://*.instagram.com/*",
     "https://*.tiktok.com/@*",
+    "https://*.reddit.com/r/*",
 ]
 
 chrome.contextMenus.create(
