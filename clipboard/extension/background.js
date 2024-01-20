@@ -6,6 +6,25 @@ function onCreated() {
   }
 }
 
+const updateURLForDiscord = (currentURL) => {
+    switch (true) {
+        case currentURL.includes("twitter"):
+            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1fxtwitter.com");
+        break;
+        case currentURL.includes("instagram"):
+            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1ddinstagram.com");
+        break;
+        case currentURL.includes("tiktok"):
+            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1vxtiktok.com");
+        break;
+        default:
+            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1fxtwitter.com");
+        break;
+    }
+
+    return modifiedURL;
+}
+
 browser.menus.create(
   {
     id: "url-modifier-discord",
@@ -18,10 +37,13 @@ browser.menus.onClicked.addListener((info, tab) => {
   switch (info.menuItemId) {
     case "url-modifier-discord":
         browser.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-        let url = tabs[0].url;
-        console.log("f", url)
-        // use `url` here inside the callback because it's asynchronous!
-      });
+            const currentTab = tabs[0];
+            const modifiedURL = updateURLForDiscord(currentTab.url);
+            browser.tabs.sendMessage(currentTab.id, {
+                message: "copyText",
+                urlToCopy: modifiedURL
+            }, () => {})
+        });
       break;
   }
 });
