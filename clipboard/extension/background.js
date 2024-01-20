@@ -1,19 +1,18 @@
+const urlRegex = /^(https?:\/\/)(www\.)?([^\/]+)/i
 const updateURLForDiscord = (currentURL) => {
+    let modifiedURL = "";
     switch (true) {
         case currentURL.includes("twitter"):
-            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1fxtwitter.com");
+            modifiedURL = currentURL.replace(urlRegex, "$1fxtwitter.com");
         break;
         case currentURL.includes("instagram"):
-            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1ddinstagram.com");
+            modifiedURL = currentURL.replace(urlRegex, "$1ddinstagram.com");
         break;
         case currentURL.includes("tiktok"):
-            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1vxtiktok.com");
+            modifiedURL = currentURL.replace(urlRegex, "$1vxtiktok.com");
         break;
         case currentURL.includes("reddit"):
-            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1vxreddit.com");
-        break;
-        default:
-            modifiedURL = currentURL.replace(/^(https?:\/\/)(www\.)?([^\/]+)/i, "$1fxtwitter.com");
+            modifiedURL = currentURL.replace(urlRegex, "$1vxreddit.com");
         break;
     }
 
