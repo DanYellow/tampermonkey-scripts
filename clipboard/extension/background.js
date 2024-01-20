@@ -29,24 +29,38 @@ const listAuthorizedSites = [
 chrome.contextMenus.create(
   {
     id: "url-modifier-discord",
-    title: "Copier pour Discord",
+    title: "Copier pour Discord (Alt+Shift+X)",
     contexts: ["all"],
     type: "normal",
     documentUrlPatterns: listAuthorizedSites
   }
 );
 
-chrome.contextMenus.onClicked.addListener((info, tab) => {
+const setURLToActiveTab = () => {
+    chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
+        const currentTab = tabs[0];
+        const modifiedURL = updateURLForDiscord(currentTab.url);
+        chrome.tabs.sendMessage(currentTab.id, {
+            message: "copyURL",
+            textToCopy: modifiedURL
+        }, () => {})
+    });
+}
+
+chrome.contextMenus.onClicked.addListener((info) => {
   switch (info.menuItemId) {
     case "url-modifier-discord":
-        chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-            const currentTab = tabs[0];
-            const modifiedURL = updateURLForDiscord(currentTab.url);
-            chrome.tabs.sendMessage(currentTab.id, {
-                message: "copyURL",
-                textToCopy: modifiedURL
-            }, () => {})
-        });
+        setURLToActiveTab();
     break;
   }
+});
+
+chrome.commands.onCommand.addListener(function (command) {
+    switch (command) {
+        case 'duplicate_tab':
+            setURLToActiveTab();
+            break;
+        default:
+            console.log(`Command ${command} not found`);
+    }
 });
