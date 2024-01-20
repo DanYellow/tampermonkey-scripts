@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "URL modifier for Discord",
-  "version": "1.1.1",
+  "version": "1.2.0",
   "description": "Copies and modify url to be compliant for Discord",
   "background": {
     "scripts": ["background.js"],
@@ -18,7 +18,8 @@
     "duplicate_tab": {
       "suggested_key": {
         "default": "Alt+Shift+X"
-      }
+      },
+      "description": "Copies and modify url to be compliant for Discord"
     }
   }
 }
