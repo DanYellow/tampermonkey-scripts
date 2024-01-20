@@ -1,11 +1,8 @@
 {
   "manifest_version": 2,
-  "name": "Borderify",
+  "name": "URL modifier for Discord",
   "version": "1.0",
-  "description": "Adds a red border to all webpages matching mozilla.org.",
-  "icons": {
-    "48": "icons/border-48.png"
-  },
+  "description": "Copies and modify url to be compliant for Discord",
   "background": {
     "scripts": ["background.js"],
     "persistent": false
@@ -16,5 +13,5 @@
       "js": ["content.js"]
     }
   ],
-  "permissions": ["activeTab", "menus", "clipboardWrite"]
+  "permissions": ["activeTab", "menus"]
 }

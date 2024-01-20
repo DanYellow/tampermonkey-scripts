@@ -13,6 +13,7 @@
 // ==/UserScript==
 (function() {
     // Create notification
+    // https://stackoverflow.com/questions/71321983/copy-to-clipboard-in-chrome-extension-v3
     const notificationContainer = document.createElement("p");
     notificationContainer.style.position = "absolute";
     notificationContainer.style.top = "-100%";

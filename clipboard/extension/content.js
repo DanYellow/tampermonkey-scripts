@@ -1,10 +1,7 @@
-chrome.runtime.onMessage.addListener(
-  // this is the message listener
-  async (request, sender, sendResponse) => {
+browser.runtime.onMessage.addListener( async (request) => {
     switch (request.message) {
-        case "urlToCopy":
+        case "copyURL":
             await navigator.clipboard.writeText(request.textToCopy);
         break;
     }
-  }
-);
+});

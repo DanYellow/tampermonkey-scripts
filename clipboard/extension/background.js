@@ -1,11 +1,3 @@
-function onCreated() {
-  if (browser.runtime.lastError) {
-    console.log(`Error: ${browser.runtime.lastError}`);
-  } else {
-    console.log("Item created successfully");
-  }
-}
-
 const updateURLForDiscord = (currentURL) => {
     switch (true) {
         case currentURL.includes("twitter"):
@@ -25,11 +17,19 @@ const updateURLForDiscord = (currentURL) => {
     return modifiedURL;
 }
 
+const listAuthorizedSites = [
+    "https://*.twitter.com/*/status/*",
+    "https://*.instagram.com/*",
+    "https://*.tiktok.com/@*",
+]
+
 browser.menus.create(
   {
     id: "url-modifier-discord",
     title: "Copier pour Discord",
     contexts: ["all"],
+    type: "normal",
+    documentUrlPatterns: listAuthorizedSites
   }
 );
 
@@ -40,10 +40,12 @@ browser.menus.onClicked.addListener((info, tab) => {
             const currentTab = tabs[0];
             const modifiedURL = updateURLForDiscord(currentTab.url);
             browser.tabs.sendMessage(currentTab.id, {
-                message: "copyText",
-                urlToCopy: modifiedURL
-            }, () => {})
+                message: "copyURL",
+                textToCopy: modifiedURL
+            }, (res) => {
+                console.log("ff" + res);
+            })
         });
-      break;
+    break;
   }
 });
