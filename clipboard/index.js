@@ -1,12 +1,13 @@
 // ==UserScript==
 // @name         URL modifier for Discord
 // @namespace    http://tampermonkey.net/
-// @version      2024-01-20
+// @version      1.0.0
 // @description  try to take over the world!
 // @author       You
-// @match        https://*.twitter.com/*
+// @match        https://*.twitter.com/*/status/*
 // @match        https://*.instagram.com/*
-// @match        https://*.tiktok.com/*
+// @match        https://*.tiktok.com/@
+// @exclude      https://*.twitter.com/i/*
 // @icon         https://www.google.com/s2/favicons?sz=64&domain=mozilla.org
 // @grant        none
 // ==/UserScript==
@@ -64,7 +65,24 @@
             }, 4500)
         });
     }
+
+    // Create notification
+    const urlModifierButton = document.createElement("button");
+    urlModifierButton.textContent = "Copier l'URL pour Discord";
+    urlModifierButton.style.position = "absolute";
+    urlModifierButton.style.left = "50%";
+    urlModifierButton.style.transform = "translateX(-50%)";
+    urlModifierButton.style.zIndex = "9999";
+    urlModifierButton.style.padding = "0.5rem";
+    urlModifierButton.style.borderRadius = "0.5rem";
+    urlModifierButton.style.fontFamily = "sans-serif";
+    urlModifierButton.style.appearance = "button";
+    // urlModifierButton.style.color = "black";
+    // urlModifierButton.style.backgroundColor = "white";
+    urlModifierButton.type = "button";
+    urlModifierButton.onclick = handleClick;
+    document.body.prepend(urlModifierButton)
     
-    // Add a click event listener to the document
-    document.addEventListener('click', handleClick);
+    // // Add a click event listener to the document
+    // document.addEventListener('click', handleClick);
 })();
