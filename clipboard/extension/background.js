@@ -3,6 +3,7 @@ const updateURLForDiscord = (currentURL) => {
     let modifiedURL = "";
     switch (true) {
         case currentURL.includes("twitter"):
+        case currentURL.includes("nitter"):
             modifiedURL = currentURL.replace(urlRegex, "$1fxtwitter.com");
         break;
         case currentURL.includes("instagram"):
@@ -24,6 +25,7 @@ const listAuthorizedSites = [
     "https://*.instagram.com/*",
     "https://*.tiktok.com/@*",
     "https://*.reddit.com/r/*",
+    "https://*.nitter.net/*/status/*",
 ]
 
 chrome.contextMenus.create(
