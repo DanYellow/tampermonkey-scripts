@@ -28,15 +28,17 @@ const listAuthorizedSites = [
     "https://*.nitter.net/*/status/*",
 ]
 
-chrome.contextMenus.create(
-  {
-    id: "url-modifier-discord",
-    title: "Copier pour Discord (Alt+Shift+X)",
-    contexts: ["all"],
-    type: "normal",
-    documentUrlPatterns: listAuthorizedSites
-  }
-);
+chrome.runtime.onInstalled.addListener(() => {
+    chrome.contextMenus.create(
+    {
+        id: "url-modifier-discord",
+        title: "Copier pour Discord (Alt+Shift+X)",
+        contexts: ["all"],
+        type: "normal",
+        documentUrlPatterns: listAuthorizedSites
+    }
+    );
+});
 
 const setURLToActiveTab = () => {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
@@ -61,8 +63,9 @@ chrome.commands.onCommand.addListener(function (command) {
     switch (command) {
         case 'duplicate_tab':
             setURLToActiveTab();
-            break;
+        break;
         default:
             console.log(`Command ${command} not found`);
+        break;
     }
 });

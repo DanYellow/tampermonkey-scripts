@@ -21,5 +21,10 @@
       },
       "description": "Copies and modify url to be compliant for Discord"
     }
+  },
+  "browser_specific_settings": {
+    "gecko": {
+      "id": "test95200@yopmail.com"
+    }
   }
 }

@@ -104,3 +104,7 @@ dist
 .tern-port
 
 .DS_Store
+
+/**/*.zip
+/**/*.rar
+/**/*.7z
