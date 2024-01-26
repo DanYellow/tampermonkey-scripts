@@ -57,7 +57,6 @@ const setURLToActiveTab = () => {
         const currentTab = tabs[0];
         const matchPostURL = listPostRegexes.some((regex) => regex.test(currentTab.url))
         
-        console.log("URLFromATag", URLFromATag)
         if(!matchPostURL && URLFromATag === null) {
             return;
         }
@@ -68,7 +67,7 @@ const setURLToActiveTab = () => {
         chrome.tabs.sendMessage(currentTab.id, {
             message: "copyURL",
             textToCopy: resUrl
-        }, () => {})
+        })
     });
 }
 
@@ -80,7 +79,7 @@ chrome.contextMenus.onClicked.addListener((info) => {
   }
 });
 
-chrome.runtime.onMessage.addListener((request) => {
+chrome.runtime.onMessage.addListener((request, sender, sendResponse) => {
     switch (request.message) {
         case "URLFromRightClick":
             if(request.url !== null && listPostRegexes.some((regex) => regex.test(request.url))) {

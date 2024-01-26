@@ -6,6 +6,7 @@ chrome.runtime.onMessage.addListener(async (request) => {
   }
 });
 
+
 window.addEventListener("contextmenu", (event) => {
   if (event.button === 2) {
     const a = event.target.closest("a");
@@ -17,6 +18,6 @@ window.addEventListener("contextmenu", (event) => {
     chrome.runtime.sendMessage({
       message: "URLFromRightClick",
       url: link,
-    }, () => {});
+    });
   }
 });
