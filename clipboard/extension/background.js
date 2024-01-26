@@ -59,11 +59,20 @@ chrome.contextMenus.onClicked.addListener((info) => {
   }
 });
 
+chrome.runtime.onMessage.addListener(async (request) => {
+    switch (request.message) {
+        case "URLFromRightClick":
+            console.log("fezfzefzefe")
+        break;
+    }
+});
+
 chrome.commands.onCommand.addListener(function (command) {
     switch (command) {
         case 'duplicate_tab':
             setURLToActiveTab();
         break;
+        
         default:
             console.log(`Command ${command} not found`);
         break;
