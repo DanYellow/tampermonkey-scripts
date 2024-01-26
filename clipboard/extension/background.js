@@ -45,7 +45,7 @@ let URLFromATag = null;
 chrome.runtime.onInstalled.addListener(() => {
     chrome.contextMenus.create({
         id: "url-modifier-discord",
-        title: "Copier pour Discord (Alt+Shift+X)",
+        title: "Copier pour Discord",
         contexts: ["all"],
         type: "normal",
         documentUrlPatterns: listAuthorizedSites
@@ -57,7 +57,8 @@ const setURLToActiveTab = () => {
         const currentTab = tabs[0];
         const matchPostURL = listPostRegexes.some((regex) => regex.test(currentTab.url))
         
-        if(!matchPostURL) {
+        console.log("URLFromATag", URLFromATag)
+        if(!matchPostURL && URLFromATag === null) {
             return;
         }
 
@@ -82,7 +83,7 @@ chrome.contextMenus.onClicked.addListener((info) => {
 chrome.runtime.onMessage.addListener((request) => {
     switch (request.message) {
         case "URLFromRightClick":
-            if(request.url != null && listPostRegexes.some((regex) => regex.test(request.url))) {
+            if(request.url !== null && listPostRegexes.some((regex) => regex.test(request.url))) {
                 URLFromATag = updateURLForDiscord(request.url);
             } else {
                 URLFromATag = null;
@@ -91,14 +92,14 @@ chrome.runtime.onMessage.addListener((request) => {
     }
 });
 
-chrome.commands.onCommand.addListener(function (command) {
-    switch (command) {
-        case 'duplicate_tab':
-            setURLToActiveTab();
-        break;
+// chrome.commands.onCommand.addListener(function (command) {
+//     switch (command) {
+//         case 'duplicate_tab':
+//             setURLToActiveTab();
+//         break;
         
-        default:
-            console.log(`Command ${command} not found`);
-        break;
-    }
-});
+//         default:
+//             console.log(`Command ${command} not found`);
+//         break;
+//     }
+// });

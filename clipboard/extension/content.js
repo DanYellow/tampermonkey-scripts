@@ -14,16 +14,9 @@ window.addEventListener("contextmenu", (event) => {
       link = a.href;
     }
 
-    var port = chrome.runtime.connect({name: "knockknock"});
-port.postMessage({joke: "Knock knock"});
-
-    // (async () => {
-    //     const response = await chrome.runtime.sendMessage({
-    //         message: "URLFromRightClick",
-    //         url: link,
-    //       });
-    //     // do something with response here, not outside the function
-    //     console.log(response);
-    //   })();
+    chrome.runtime.sendMessage({
+      message: "URLFromRightClick",
+      url: link,
+    }, () => {});
   }
 });
