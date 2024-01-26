@@ -1,9 +1,11 @@
 const urlRegex = /^(https?:\/\/)(www\.)?([^\/]+)/i
 
 const listPostRegexes = [
-    /http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/,
-    /http(?:s)?:\/\/(?:www\.)?instagram\.com\/([a-zA-Z0-9_]+)\/(p|reel)\/([a-zA-Z0-9_]+)/,
-
+    /http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
+    /http(?:s)?:\/\/(?:www\.)?instagram\.com\/([a-zA-Z0-9_]+)\/(p|reel)\/([a-zA-Z0-9_]+)/gi,
+    /http(?:s)?:\/\/(?:www\.)?tiktok\.com\/@([a-zA-Z0-9_.]+)\/video\/([0-9_]+)/gi,
+    /http(?:s)?:\/\/(?:www\.)?reddit\.com\/r\/([a-zA-Z0-9_.]+)\/comments\/([a-zA-Z0-9]+)/gi,
+    /http(?:s)?:\/\/(?:www\.)?nitter\.net\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
 ]
 
 const updateURLForDiscord = (currentURL) => {
