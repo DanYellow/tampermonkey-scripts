@@ -62,14 +62,8 @@ chrome.contextMenus.onClicked.addListener((info) => {
 chrome.runtime.onMessage.addListener(async (request, sender, sendResponse) => {
     switch (request.message) {
         case "URLFromRightClick":
-            // chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
-            //     const currentTab = tabs[0];
-            //     const modifiedURL = updateURLForDiscord(request.url);
-            //     chrome.tabs.sendMessage(currentTab.id, {
-            //         message: "copyURL",
-            //         textToCopy: modifiedURL
-            //     }, () => {})
-            // });
+            const modifiedURL = updateURLForDiscord(request.url);
+            return Promise.resolve({ url: modifiedURL });
         break;
     }
 });
