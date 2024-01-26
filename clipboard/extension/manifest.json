@@ -5,7 +5,7 @@
   "description": "Copies and modify url to be compliant for Discord",
   "background": {
     "scripts": ["background.js"],
-    "persistent": true
+    "persistent": false
   },
   "content_scripts": [
     {
@@ -20,15 +20,6 @@
         "default": "Alt+Shift+X"
       },
       "description": "Copies and modify url to be compliant for Discord"
-    }
-  },
-  "developer": {
-    "name": "Curt 57",
-    "url": "https://example.com/"
-  },
-  "browser_specific_settings": {
-    "gecko": {
-      "id": "test95200@yopmail.com"
     }
   }
 }
