@@ -8,13 +8,14 @@ chrome.runtime.onMessage.addListener(async (request) => {
 
 window.addEventListener("contextmenu", (event) => {
     if(event.button === 2) {
-        chrome.runtime.sendMessage({
-            message: "URLFromRightClick",
-            url: "test"
-        }, () => {})
+        
         const a = event.target.closest("a");
         if(a != null) {
-            console.log(a.href);
+            console.log("fezfzfzeeee")
+            chrome.runtime.sendMessage({
+                message: "URLFromRightClick",
+                url: a.href
+            }, () => {})
         }
   }
 });
