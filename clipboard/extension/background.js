@@ -2,7 +2,7 @@ const urlRegex = /^(https?:\/\/)(www\.)?([^\/]+)/i
 
 const listPostRegexes = [
     /http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
-    /http(?:s)?:\/\/(?:www\.)?instagram\.com\/([a-zA-Z0-9_]+)\/(p|reel)\/([a-zA-Z0-9_]+)/gi,
+    /http(?:s)?:\/\/(?:www\.)?instagram\.com\/(([a-zA-Z0-9_]+)\/)?(p|reel)\/([a-zA-Z0-9_]+)/gi,
     /http(?:s)?:\/\/(?:www\.)?tiktok\.com\/@([a-zA-Z0-9_.]+)\/video\/([0-9_]+)/gi,
     /http(?:s)?:\/\/(?:www\.)?reddit\.com\/r\/([a-zA-Z0-9_.]+)\/comments\/([a-zA-Z0-9]+)/gi,
     /http(?:s)?:\/\/(?:www\.)?nitter\.net\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
@@ -58,7 +58,7 @@ const setURLToActiveTab = () => {
     chrome.tabs.query({ active: true, lastFocusedWindow: true }, (tabs) => {
         const currentTab = tabs[0];
         const matchPostURL = listPostRegexes.some((regex) => regex.test(currentTab.url))
-
+        
         if(!matchPostURL && URLFromATag === null) {
             return;
         }
