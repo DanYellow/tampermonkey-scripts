@@ -7,6 +7,7 @@ const listPostRegexes = [
     /http(?:s)?:\/\/(?:www\.)?reddit\.com\/r\/([a-zA-Z0-9_.]+)\/comments\/([a-zA-Z0-9]+)/gi,
     /http(?:s)?:\/\/(?:www\.)?nitter\.net\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
     /http(?:s)?:\/\/nitter\.unixfox\.eu\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
+    /http(?:s)?:\/\/nitter\.catsarch\.com\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
 ]
 
 const updateURLForDiscord = (currentURL) => {
@@ -41,6 +42,7 @@ const listAuthorizedSites = [
     "https://*.reddit.com/*",
     "https://*.nitter.net/*",
     "https://nitter.unixfox.eu/*",
+    "https://nitter.catsarch.com/*",
 ]
 let URLFromATag = null; 
 
