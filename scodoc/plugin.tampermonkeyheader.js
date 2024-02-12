@@ -6,11 +6,11 @@ export default ({ libName }) => {
     return {
         name: 'Add Tampermonkey header',
         closeBundle: () => {
-            let today = new Date();
+            const today = new Date();
             const dd = String(today.getDate()).padStart(2, '0');
-            const mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+            const mm = String(today.getMonth() + 1).padStart(2, '0'); // January is 0!
             const yyyy = today.getFullYear();
-            today = dd + '/' + mm + '/' + yyyy;
+            const todayString = `${dd}/${mm}/${yyyy}`;
             const pathToLib = path.join(__dirname, 'dist', `${libName}.js`);
             const pathToTxtFile = path.join(
                 __dirname,
@@ -22,11 +22,11 @@ export default ({ libName }) => {
                 // @name         ScoDoc - Remplissage de notes
                 // @namespace    http://scodoc.iut.cyu.fr/
                 // @version      ${version}
-                // @description  Permet de remplir les notes depuis un fichier .csv ou .json
+                // @description  Remplissage des notes sur Scodoc depuis un fichier .csv ou .json
                 // @author       IUT CY Paris Université
                 // @match        http*://scodoc.iut.cyu.fr/*
                 // @grant        none
-                // @date      ${today}
+                // @date         ${todayString}
                 // ==/UserScript==
                 /* eslint-disable */
                 `);
