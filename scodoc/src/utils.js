@@ -4,7 +4,11 @@ import jschardet from 'jschardet';
 const defaultJSONColumnsNames = ['Nom', 'Prénom', 'Notes'];
 let JSONColumnsNames = defaultJSONColumnsNames;
 
-const fillGrades = (listGrades, dom) => {
+const delay = ms => {
+    return new Promise(resolve => setTimeout(resolve, ms));
+};
+
+const fillGrades = async (listGrades, dom) => {
     // File headers
     const lastNameKey = JSONColumnsNames[0];
     const firstNameKey = JSONColumnsNames[1];
@@ -12,11 +16,10 @@ const fillGrades = (listGrades, dom) => {
 
     const specialCharsRegex = /[\u0300-\u036f]/g;
 
-    listGrades.forEach(item => {
+    for (const item of listGrades) {
         const currentStudentRow = dom.listGradesRows.find(el => {
-            const studentNameCell = el.getElementsByClassName(
-                'tf-fieldlabel'
-            )[0];
+            const studentNameCell =
+                el.getElementsByClassName('tf-fieldlabel')[0];
 
             // Data from scodoc
             const cellText = studentNameCell.textContent
@@ -61,16 +64,17 @@ const fillGrades = (listGrades, dom) => {
             const grade = isNotAValidGrade
                 ? item[gradesKey]
                 : Number(formattedGrade);
-                currentStudentRowInput.focus();
+            currentStudentRowInput.focus();
 
             if (isAValidGrade) {
                 currentStudentRowInput.value = grade;
             } else {
-                currentStudentRowInput.value = blankVal;
+                currentStudentRowInput.value = 'ABS';
             }
             currentStudentRowInput.blur();
         }
-    });
+        await delay(250)
+    };
 };
 
 const resetTpl = () => {
@@ -140,9 +144,8 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
 
             JSONColumnsNames = Object.keys(listGrades[0]);
 
-            const gradesComparisonInfos = isScodocMaxGradeMatchWithFileMaxGrade(
-                dom
-            );
+            const gradesComparisonInfos =
+                isScodocMaxGradeMatchWithFileMaxGrade(dom);
             if (!gradesComparisonInfos.isMatching) {
                 alert(`
 La note maximale de votre évaluation sur ScoDoc (/${Number(

@@ -18,17 +18,18 @@ export default ({ libName }) => {
                 `${libName}.js.txt`
             );
             const logRows = fs.readFileSync(pathToLib).toString().split('\n');
-            logRows.unshift(`// ==UserScript==
-                // @name         ScoDoc - Remplissage de notes
-                // @namespace    http://scodoc.iut.cyu.fr/
-                // @version      ${version}
-                // @description  Remplissage des notes sur Scodoc depuis un fichier .csv ou .json
-                // @author       IUT CY Paris Université
-                // @match        http*://scodoc.iut.cyu.fr/*
-                // @grant        none
-                // @date         ${todayString}
-                // ==/UserScript==
-                /* eslint-disable */
+            logRows.unshift(`
+// ==UserScript==
+// @name         ScoDoc - Remplissage de notes
+// @namespace    http://scodoc.iut.cyu.fr/
+// @version      ${version}
+// @description  Remplissage des notes sur Scodoc depuis un fichier .csv ou .json
+// @author       IUT CY Paris Université
+// @match        http*://scodoc.iut.cyu.fr/*
+// @grant        none
+// @date         ${todayString}
+// ==/UserScript==
+/* eslint-disable */
                 `);
             fs.writeFileSync(pathToLib, logRows.join('\n'));
             fs.copyFile(pathToLib, pathToTxtFile, () => {});

@@ -12,6 +12,7 @@ export default {
     build: {
         outDir: '../dist',
         emptyOutDir: true,
+        minify: true,
         lib: {
             entry: path.resolve(__dirname, 'src/main.js'),
             name: 'ScodocFillingGrades',
