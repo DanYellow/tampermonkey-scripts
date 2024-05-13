@@ -42,6 +42,27 @@
         height: 0;
         padding-bottom: 0;
     }
+
+    .tp-upload-area {
+        text-align: center;
+        padding: 0.75rem;
+        border: 2px solid black;
+    }
+
+    .tp-upload-area.over {
+        border-color: rgb(29 78 216);
+    }
+
+    .tp-upload-btn {
+        padding: 0.5rem 1rem;
+        background-color: rgb(29 78 216);
+        color: white;
+        border-radius: 0.5rem;
+        display: inline-block;
+    }
+    .tp-upload-btn:hover {
+        filter: brightness(80%);
+    }
 </style>
 <form enctype="multipart/form-data; charset=utf-8">
     <fieldset class="tp-ext-form-container" id="tp-ext-form-container">
@@ -73,7 +94,7 @@
         </ul>
         <hr />
 
-        <p style="font-size: 1.2rem; font-weight: bold;">
+        <p style="font-size: 1.2rem; font-weight: bold">
             Gestion des notes absentes
         </p>
         <ul class="tp-ext-empty-values-list-choices">
@@ -97,15 +118,21 @@
             </li>
         </ul>
 
-        <label id="grades_field">
-            <span>Sélectionnez le fichier de notes</span>
-            <input
-                type="file"
-                name="grades_file"
-                id="grades_file"
-                accept=".csv"
-            />
-        </label>
+        <div data-drag-n-drop-area class="tp-upload-area">
+            <label id="grades_field" class="tp-upload-btn">
+                <span>Sélectionnez le fichier de notes</span>
+                <input
+                    type="file"
+                    name="grades_file"
+                    id="grades_file"
+                    accept=".csv"
+                    style="display: none"
+                />
+            </label>
+            <p>ou</p>
+            <p class="text-slate-600">Glissez-déposez votre fichier csv</p>
+        </div>
+
         <p class="tp-ext-valid-file" id="restart_container">
             Fichier valide. Notes intégrées.
             <button type="button" id="restart_btn">Recommencer ?</button>
