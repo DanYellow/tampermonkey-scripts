@@ -14,7 +14,7 @@ dragAndDropArea.addEventListener('dragover', e => {
 
 dragAndDropArea.addEventListener('drop', e => {
     e.preventDefault();
-    
+    e.currentTarget.classList.remove("over");
     if (e.dataTransfer.items) {
         [...e.dataTransfer.items].forEach((file, i) => {
             if (file.kind === 'file') {

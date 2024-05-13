@@ -110,6 +110,15 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
 
     const ext = name.substring(lastDot + 1);
 
+    if (!listAllowedFormats.includes(ext)) {
+        alert(
+            `Votre fichier n'est pas au format ${listAllowedFormats.join(
+                ' ou '
+            )}`
+        );
+        return;
+    }
+
     const reader = new FileReader();
     reader.onload = eRaw => {
         const charset = jschardet.detect(eRaw.target.result);
@@ -125,15 +134,6 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
         reader.readAsText(file);
         reader.onload = e => {
             let listGrades = [];
-
-            if (!listAllowedFormats.includes(ext)) {
-                alert(
-                    `Votre fichier n'est pas au format ${listAllowedFormats.join(
-                        ' ou '
-                    )}`
-                );
-                return;
-            }
 
             listGrades = csv2json(e.target.result, {
                 parseNumbers: true,
