@@ -21,7 +21,6 @@
 
     .tp-ext-valid-file {
         color: green;
-        display: none;
     }
 
     .tp-ext-empty-values-list-choices {
@@ -59,8 +58,15 @@
         color: white;
         border-radius: 0.5rem;
         display: inline-block;
+        border: none;
     }
-    .tp-upload-btn:hover {
+
+    .tp-upload-btn input {
+        width: 0;
+        height: 0;
+    }
+    .tp-upload-btn:hover,
+    .tp-upload-btn:focus-within {
         filter: brightness(80%);
     }
 </style>
@@ -119,23 +125,27 @@
         </ul>
 
         <div data-drag-n-drop-area class="tp-upload-area">
-            <label id="grades_field" class="tp-upload-btn">
-                <span>Sélectionnez le fichier de notes</span>
-                <input
-                    type="file"
-                    name="grades_file"
-                    id="grades_file"
-                    accept=".csv"
-                    style="display: none"
-                />
-            </label>
-            <p>ou</p>
-            <p class="text-slate-600">Glissez-déposez votre fichier csv</p>
+            <div>
+                <p class="text-slate-600">Glissez-déposez votre fichier csv</p>
+                <p>ou</p>
+                <label id="grades_field" class="tp-upload-btn">
+                    <span>Sélectionnez le fichier de notes</span>
+                    <input
+                        type="file"
+                        name="grades_file"
+                        id="grades_file"
+                        accept=".csv"
+                    />
+                </label>
+            </div>
+            <p style="font-size: 0.9rem; margin-top: 1.25rem;">Fichier .csv encodé UTF-8 uniquement</p>
         </div>
 
-        <p class="tp-ext-valid-file" id="restart_container">
-            Fichier valide. Notes intégrées.
-            <button type="button" id="restart_btn">Recommencer ?</button>
-        </p>
+        <div data-restart-upload-container>
+            <p class="tp-ext-valid-file">Fichier valide. Notes intégrées.</p>
+            <button type="button" class="tp-upload-btn" id="restart_btn">
+                Recommencer ?
+            </button>
+        </div>
     </fieldset>
 </form>
