@@ -1,5 +1,6 @@
 import { resetTpl, manageFileUpload, delegateEvtHandler, DOM } from './utils';
 import formTpl from './tpls/form.html?raw';
+import packageJSON from "../package.json";
 
 (async function () {
     if (DOM.listGradesRows.length === 0 && !DOM.formContainer) {
@@ -13,6 +14,8 @@ import formTpl from './tpls/form.html?raw';
     DOM.resetContainer = document.querySelector("[data-restart-upload-container]");
 
     DOM.resetContainer.style.display = 'none';
+
+    document.querySelector("[data-project-name]").textContent += ` v${packageJSON.version}`
 
     await import('./drag-and-drop.js');
 
@@ -28,7 +31,7 @@ import formTpl from './tpls/form.html?raw';
         });
     });
 
-    delegateEvtHandler(document, 'click', '#restart_btn', e => {
+    delegateEvtHandler(document, 'click', '#restart_btn', () => {
         resetTpl();
     });
 })();
