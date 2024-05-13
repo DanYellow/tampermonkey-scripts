@@ -57,6 +57,7 @@ const fillGrades = async (listGrades, dom) => {
             'input[class^="note"]'
         );
         if (currentStudentRowInput) {
+            document.body.click();
             const formattedGrade = String(item[gradesKey]).replace(',', '.');
             const isNotAValidGrade = Number.isNaN(Number(formattedGrade));
             const isAValidGrade = !isNotAValidGrade;
@@ -65,6 +66,7 @@ const fillGrades = async (listGrades, dom) => {
                 ? item[gradesKey]
                 : Number(formattedGrade);
             currentStudentRowInput.focus();
+            await delay(0);
 
             if (isAValidGrade) {
                 currentStudentRowInput.value = grade;
@@ -73,8 +75,8 @@ const fillGrades = async (listGrades, dom) => {
             }
             currentStudentRowInput.blur();
         }
-        await delay(250)
-    };
+        await delay(0);
+    }
 };
 
 const resetTpl = () => {
@@ -187,4 +189,10 @@ const delegateEvtHandler = (el, evt, sel, handler) => {
     });
 };
 
-export { resetTpl, manageFileUpload, delegateEvtHandler };
+const DOM = {
+    listGradesRows: Array.from(document.querySelectorAll('tr.etud_elem')),
+    formContainer: document.getElementById('tp-ext-form-container'),
+    maxGrade: document.querySelector('.tf-ro-field.formnote_bareme'),
+};
+
+export { resetTpl, manageFileUpload, delegateEvtHandler, DOM };
