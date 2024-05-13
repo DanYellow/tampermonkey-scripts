@@ -8,6 +8,12 @@ const delay = ms => {
     return new Promise(resolve => setTimeout(resolve, ms));
 };
 
+const DOM = {
+    listGradesRows: Array.from(document.querySelectorAll('tr.etud_elem')),
+    formContainer: document.getElementById('tp-ext-form-container'),
+    maxGrade: document.querySelector('.tf-ro-field.formnote_bareme'),
+};
+
 const fillGrades = async (listGrades, dom) => {
     // File headers
     const lastNameKey = JSONColumnsNames[0];
@@ -20,6 +26,10 @@ const fillGrades = async (listGrades, dom) => {
         const currentStudentRow = dom.listGradesRows.find(el => {
             const studentNameCell =
                 el.getElementsByClassName('tf-fieldlabel')[0];
+
+            if (!studentNameCell) {
+                return;
+            }
 
             // Data from scodoc
             const cellText = studentNameCell.textContent
@@ -50,7 +60,7 @@ const fillGrades = async (listGrades, dom) => {
         });
 
         if (!currentStudentRow) {
-            return;
+            continue;
         }
 
         const currentStudentRowInput = currentStudentRow.querySelector(
@@ -81,8 +91,8 @@ const fillGrades = async (listGrades, dom) => {
 
 const resetTpl = () => {
     document.querySelector('#grades_file').value = '';
-    document.querySelector('#grades_field').style.display = 'block';
-    document.querySelector('#restart_container').style.display = 'none';
+    document.querySelector('[data-drag-n-drop-area]').style.display = 'block';
+    DOM.resetContainer.style.display = 'none';
 };
 
 // We check if the grade set in
@@ -169,8 +179,9 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                     input.blur();
                 }
             );
-            document.querySelector('#grades_field').style.display = 'none';
-            document.querySelector('#restart_container').style.display =
+            document.querySelector('[data-drag-n-drop-area]').style.display =
+                'none';
+            DOM.resetContainer.style.display =
                 'block';
         };
     };
@@ -187,12 +198,6 @@ const delegateEvtHandler = (el, evt, sel, handler) => {
             t = t.parentNode;
         }
     });
-};
-
-const DOM = {
-    listGradesRows: Array.from(document.querySelectorAll('tr.etud_elem')),
-    formContainer: document.getElementById('tp-ext-form-container'),
-    maxGrade: document.querySelector('.tf-ro-field.formnote_bareme'),
 };
 
 export { resetTpl, manageFileUpload, delegateEvtHandler, DOM };

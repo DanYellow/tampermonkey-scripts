@@ -9,6 +9,11 @@ import formTpl from './tpls/form.html?raw';
     const body = document.getElementsByTagName('body')[0];
     body.insertAdjacentHTML('beforeend', formTpl);
 
+    DOM.dragAndDropArea = document.querySelector('[data-drag-n-drop-area]');
+    DOM.resetContainer = document.querySelector("[data-restart-upload-container]");
+
+    DOM.resetContainer.style.display = 'none';
+
     await import('./drag-and-drop.js');
 
     delegateEvtHandler(document, 'change', '#grades_file', e => {
