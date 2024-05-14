@@ -30,6 +30,8 @@
         list-style-type: none;
         flex-direction: column;
         padding-left: 0;
+        margin-bottom: 1.35rem;
+        margin-top: 0;
     }
     .tp-ext-empty-values-list-choices label {
         display: flex;
@@ -46,7 +48,7 @@
     .tp-upload-area {
         text-align: center;
         padding: 0.75rem;
-        border: 2px solid black;
+        border: 2px dashed black;
     }
 
     .tp-upload-area.over {
@@ -69,6 +71,12 @@
     .tp-upload-btn:hover,
     .tp-upload-btn:focus-within {
         filter: brightness(80%);
+    }
+
+    .tp-form-title {
+        font-size: 1.15rem;
+        font-weight: bold;
+        margin: 0.95rem 0 0.35rem;
     }
 </style>
 <form enctype="multipart/form-data; charset=utf-8">
@@ -96,50 +104,61 @@
             </li>
             <li class="tp-text-bold">
                 Le fichier doit être encodé en Unicode UTF-8. Sinon ça ne
-                fonctionnera.
+                fonctionnera pas
             </li>
         </ul>
         <hr />
 
-        <p style="font-size: 1.2rem; font-weight: bold">
-            Gestion des notes absentes
-        </p>
-        <ul class="tp-ext-empty-values-list-choices">
-            <li>
-                <label id="att">
-                    <span>Mettre les notes en absent (ABS)</span>
-                    <input
-                        type="radio"
-                        name="empty_val"
-                        id="att"
-                        value="ABS"
-                        checked
-                    />
-                </label>
-            </li>
-            <li>
-                <label id="exc">
-                    <span>Excuser les notes (EXC)</span>
-                    <input type="radio" name="empty_val" id="exc" value="EXC" />
-                </label>
-            </li>
-        </ul>
+        <div data-first-step>
+            <p class="tp-form-title">Gestion des notes manquantes</p>
+            <ul class="tp-ext-empty-values-list-choices">
+                <li>
+                    <label id="att">
+                        <span>Mettre les notes en absent (ABS)</span>
+                        <input
+                            type="radio"
+                            name="empty_val"
+                            id="att"
+                            value="ABS"
+                            checked
+                        />
+                    </label>
+                </li>
+                <li>
+                    <label id="exc">
+                        <span>Excuser les notes (EXC)</span>
+                        <input
+                            type="radio"
+                            name="empty_val"
+                            id="exc"
+                            value="EXC"
+                        />
+                    </label>
+                </li>
+            </ul>
 
-        <div data-drag-n-drop-area class="tp-upload-area">
-            <div>
-                <p class="text-slate-600">Glissez-déposez votre fichier csv</p>
-                <p>ou</p>
-                <label id="grades_field" class="tp-upload-btn">
-                    <span>Sélectionnez le fichier de notes</span>
-                    <input
-                        type="file"
-                        name="grades_file"
-                        id="grades_file"
-                        accept=".csv"
-                    />
-                </label>
+            <p class="tp-form-title">Fichier CSV</p>
+
+            <div data-drag-n-drop-area class="tp-upload-area">
+                <div>
+                    <p class="text-slate-600">
+                        Glissez-déposez votre fichier csv
+                    </p>
+                    <p>ou</p>
+                    <label id="grades_field" class="tp-upload-btn">
+                        <span>Sélectionnez un fichier csv</span>
+                        <input
+                            type="file"
+                            name="grades_file"
+                            id="grades_file"
+                            accept=".csv"
+                        />
+                    </label>
+                </div>
+                <p style="font-size: 0.9rem; margin-top: 1.25rem">
+                    Fichier .csv encodé UTF-8 uniquement
+                </p>
             </div>
-            <p style="font-size: 0.9rem; margin-top: 1.25rem;">Fichier .csv encodé UTF-8 uniquement</p>
         </div>
 
         <div data-restart-upload-container>

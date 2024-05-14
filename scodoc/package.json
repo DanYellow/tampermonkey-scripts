@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "scripts": {
     "build": "vite build",
+    "start": "vite",
     "dev": "vite",
     "release": "standard-version"
   },

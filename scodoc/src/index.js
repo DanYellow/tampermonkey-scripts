@@ -12,6 +12,7 @@ import packageJSON from "../package.json";
 
     DOM.dragAndDropArea = document.querySelector('[data-drag-n-drop-area]');
     DOM.resetContainer = document.querySelector("[data-restart-upload-container]");
+    DOM.firstStep = document.querySelector("[data-first-step]");
 
     DOM.resetContainer.style.display = 'none';
 

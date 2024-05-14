@@ -91,7 +91,7 @@ const fillGrades = async (listGrades, dom) => {
 
 const resetTpl = () => {
     document.querySelector('#grades_file').value = '';
-    document.querySelector('[data-drag-n-drop-area]').style.display = 'block';
+    DOM.firstStep.style.display = 'block';
     DOM.resetContainer.style.display = 'none';
 };
 
@@ -179,7 +179,7 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                     input.blur();
                 }
             );
-            document.querySelector('[data-drag-n-drop-area]').style.display =
+            DOM.firstStep.style.display =
                 'none';
             DOM.resetContainer.style.display =
                 'block';
