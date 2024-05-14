@@ -2,6 +2,7 @@ import csv2json from 'csvjson-csv2json';
 
 const defaultJSONColumnsNames = ['Nom', 'Prénom', 'Notes'];
 let JSONColumnsNames = defaultJSONColumnsNames;
+let listNonRegisteredStudents = [];
 
 const delay = ms => {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -59,6 +60,10 @@ const fillGrades = async (listGrades, dom) => {
         });
 
         if (!currentStudentRow) {
+            listNonRegisteredStudents.push(
+                `${item[lastNameKey]} ${item[firstNameKey]}`
+            );
+
             continue;
         }
 
@@ -169,8 +174,18 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                 resetTpl();
                 return;
             }
-
+            listNonRegisteredStudents = [];
             fillGrades(listGrades, dom);
+            const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']")
+            const listUnknownStudents = document.querySelector('[data-list-unknown-students]')
+            listUnknownStudents.replaceChildren();
+           
+            listNonRegisteredStudents.forEach((_item) => {
+                const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
+                unknownStudentTpl.querySelector("li").textContent = _item;
+                listUnknownStudents.append(unknownStudentTpl)
+            })
+
             Array.from(document.querySelectorAll(".note[value='']")).forEach(
                 input => {
                     input.focus();

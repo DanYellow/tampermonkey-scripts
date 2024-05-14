@@ -85,7 +85,7 @@
             Remplisseur automatique de notes
         </legend>
 
-        <p>Prenez bien soin à respecter les règles suivantes :</p>
+        <p style="margin: 0;">Prenez bien soin à respecter les règles suivantes :</p>
         <ul>
             <li>Format de fichier .csv</li>
             <li>
@@ -163,9 +163,21 @@
 
         <div data-restart-upload-container>
             <p class="tp-ext-valid-file">Fichier valide. Notes intégrées.</p>
+            <details style="margin-bottom: 1rem;">
+                <summary>
+                    Liste des étudiants non pris en compte
+                </summary>
+                <ul data-list-unknown-students="">
+
+                </ul>
+            </details>
+
             <button type="button" class="tp-upload-btn" id="restart_btn">
                 Recommencer ?
             </button>
         </div>
     </fieldset>
 </form>
+<template data-template-id="unknown-student">
+    <li></li>
+</template>
