@@ -11,6 +11,19 @@
 // ==/UserScript==
 /* eslint-disable */
                 
+
+// ==UserScript==
+// @name         ScoDoc - Remplissage de notes
+// @namespace    http://scodoc.iut.cyu.fr/
+// @version      0.5.5
+// @description  Remplissage des notes sur Scodoc depuis un fichier .csv ou .json
+// @author       IUT CY Paris Université
+// @match        http*://scodoc.iut.cyu.fr/*
+// @grant        none
+// @date         14/05/2024
+// ==/UserScript==
+/* eslint-disable */
+                
 (function(A0){typeof define=="function"&&define.amd?define(A0):A0()})(function(){"use strict";var A0=typeof globalThis<"u"?globalThis:typeof window<"u"?window:typeof global<"u"?global:typeof self<"u"?self:{};function Z0(r){return r&&r.__esModule&&Object.prototype.hasOwnProperty.call(r,"default")?r.default:r}var F0={exports:{}};(function(r,l){(function(){var i="We could not detect the separator.",c="Empty CSV. Please provide something.",s="Could not detect header. Ensure first row cotains your column headers.",h=[",",";","	"],C={",":"comma",";":"semicolon","	":"tab"};function A(g){var p={},u;return h.forEach(function(_,S){var n=new RegExp(_,"g");p[_]=(g.match(n)||[]).length,u=!u||p[_]>p[u]?_:u}),u}function y(){var g=[].slice.call(arguments),p=g.reduce(function(u,_){return u.length>_.length?u:_},[]);return p.map(function(u,_){return g.map(function(S){return S[_]})})}function H(g){for(var p={},u=0;u<g.length;u++){var _=g[u];p[_]===void 0?p[_]=0:p[_]++}for(var S=[],u=g.length-1;u>=0;u--){var _=g[u];p[_]>0&&(_=_+"__"+p[_]--),S.unshift(_)}return S}function R(g,p){if(p||(p={}),g.length==0)throw c;var u=p.separator||A(g);if(!u)throw i;var _=[];try{var _=D.parse(g,C[u])}catch(V){var S=g.lastIndexOf(`
 `,V.offset),n=g.indexOf(`
 `,V.offset),e0=g.substring(S>=-1?S:0,n>-1?n:g.length);throw V.message+" On line "+V.line+" and column "+V.column+`.

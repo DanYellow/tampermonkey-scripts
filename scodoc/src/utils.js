@@ -1,5 +1,4 @@
 import csv2json from 'csvjson-csv2json';
-import jschardet from 'jschardet';
 
 const defaultJSONColumnsNames = ['Nom', 'Prénom', 'Notes'];
 let JSONColumnsNames = defaultJSONColumnsNames;
@@ -51,10 +50,10 @@ const fillGrades = async (listGrades, dom) => {
 
             const isFirstNameMatched = cleanedFirstName
                 .split(' ')
-                .some(item => cellText.includes(item));
+                .some(_item => cellText.includes(_item));
             const isLastNameMatched = cleanedLastName
                 .split(' ')
-                .some(item => cellText.includes(item));
+                .some(_item => cellText.includes(_item));
 
             return isFirstNameMatched && isLastNameMatched;
         });
@@ -131,9 +130,9 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
 
     const reader = new FileReader();
     reader.onload = eRaw => {
-        const charset = jschardet.detect(eRaw.target.result);
-
-        if (charset.encoding.toLowerCase() != 'utf-8') {
+        try {
+            new TextDecoder('utf8', { fatal: true }).decode(eRaw.target.result);
+        } catch (e) {
             alert(
                 'Votre fichier doit être encodé en UTF-8. Veuillez effectuer ce changement.'
             );
@@ -179,13 +178,11 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                     input.blur();
                 }
             );
-            DOM.firstStep.style.display =
-                'none';
-            DOM.resetContainer.style.display =
-                'block';
+            DOM.firstStep.style.display = 'none';
+            DOM.resetContainer.style.display = 'block';
         };
     };
-    reader.readAsBinaryString(file);
+    reader.readAsArrayBuffer(file);
 };
 
 const delegateEvtHandler = (el, evt, sel, handler) => {
