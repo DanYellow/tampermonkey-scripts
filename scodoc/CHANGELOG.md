@@ -8,8 +8,8 @@ All notable changes to this project will be documented in this file. See [standa
 ### Features
 
 * List non registered students ([ee5c0f2](https://github.com/DanYellow/tampermonkey-scripts/commit/ee5c0f2a3ff8c782ceb38b1abf1d0d5325753c1e))
-* scodoc - add drag and drop feature to upload csv file ([369c73f](https://github.com/DanYellow/tampermonkey-scripts/commit/369c73f9790f33346dcca4c339b041000286356d))
-* scodoc - Display current version number ([5001917](https://github.com/DanYellow/tampermonkey-scripts/commit/500191710760ef34f9c81cb410cb3a88539ae040))
+* Add drag and drop feature to upload csv file ([369c73f](https://github.com/DanYellow/tampermonkey-scripts/commit/369c73f9790f33346dcca4c339b041000286356d))
+* Display current version number ([5001917](https://github.com/DanYellow/tampermonkey-scripts/commit/500191710760ef34f9c81cb410cb3a88539ae040))
 
 ### [0.5.5](https://github.com/DanYellow/tampermonkey-scripts/compare/v0.5.4...v0.5.5) (2024-03-11)
 
