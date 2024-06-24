@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.0.1](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.0.0...v1.0.1) (2024-06-24)
+
+
+### Bug Fixes
+
+* Missing registering of first input ([362a4b9](https://github.com/DanYellow/tampermonkey-scripts/commit/362a4b983192c88d81d6a20563bb8ea1a582dbee))
+
 ## [1.0.0](https://github.com/DanYellow/tampermonkey-scripts/compare/v0.5.5...v1.0.0) (2024-05-14)
 
 
