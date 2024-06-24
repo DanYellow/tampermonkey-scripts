@@ -2,6 +2,7 @@ const urlRegex = /^(https?:\/\/)(www\.)?([^\/]+)/i
 
 const listPostRegexes = [
     /http(?:s)?:\/\/(?:www\.)?twitter\.com\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
+    /http(?:s)?:\/\/(?:www\.)?x\.com\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
     /http(?:s)?:\/\/(?:www\.)?instagram\.com\/(([a-zA-Z0-9_]+)\/)?(p|reel)\/([a-zA-Z0-9_]+)/gi,
     /http(?:s)?:\/\/(?:www\.)?tiktok\.com\/@([a-zA-Z0-9_.]+)\/video\/([0-9_]+)/gi,
     /http(?:s)?:\/\/(?:www\.)?reddit\.com\/r\/([a-zA-Z0-9_.]+)\/comments\/([a-zA-Z0-9]+)/gi,
@@ -9,6 +10,7 @@ const listPostRegexes = [
     /http(?:s)?:\/\/nitter\.unixfox\.eu\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
     /http(?:s)?:\/\/nitter\.catsarch\.com\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
     /http(?:s)?:\/\/nitter\.lanterne-rouge\.info\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
+    /http(?:s)?:\/\/nitter\.poast\.org\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
 ]
 
 const updateURLForDiscord = (currentURL) => {
@@ -17,6 +19,7 @@ const updateURLForDiscord = (currentURL) => {
     switch (true) {
         case currentURL.includes("twitter"):
         case currentURL.includes("nitter"):
+        case currentURL.includes("x"):
             modifiedURL = currentURL.replace(urlRegex, "$1fxtwitter.com");
         break;
         case currentURL.includes("instagram"):
@@ -38,13 +41,14 @@ const updateURLForDiscord = (currentURL) => {
 
 const listAuthorizedSites = [
     "https://*.twitter.com/*",
+    "https://*.x.com/*",
     "https://*.instagram.com/*",
     "https://*.tiktok.com/*",
     "https://*.reddit.com/*",
     "https://*.nitter.net/*",
     "https://nitter.unixfox.eu/*",
     "https://nitter.catsarch.com/*",
-    "https://nitter.lanterne-rouge.info/*",
+    "https://nitter.poast.org/*",
 ]
 let URLFromATag = null; 
 
