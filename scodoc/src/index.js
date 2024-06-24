@@ -13,7 +13,6 @@ import packageJSON from "../package.json";
     DOM.dragAndDropArea = document.querySelector('[data-drag-n-drop-area]');
     DOM.resetContainer = document.querySelector("[data-restart-upload-container]");
     DOM.firstStep = document.querySelector("[data-first-step]");
-
     DOM.resetContainer.style.display = 'none';
 
     document.querySelector("[data-project-name]").textContent += ` v${packageJSON.version}`
@@ -32,13 +31,11 @@ import packageJSON from "../package.json";
         });
     });
 
-    delegateEvtHandler(document, 'click', '#restart_btn', () => {
+    delegateEvtHandler(document, 'click', '[data-restart]', () => {
         resetTpl();
     });
 
     delegateEvtHandler(document, 'click', '[data-force-save]', () => {
         forceSave();
     });
-
-    
 })();
