@@ -9,7 +9,7 @@
         border: 2px solid #333333;
         max-width: 450px;
         overflow: hidden;
-        transition: height 0.2s ease-out;
+        border-radius: 0.35rem;
     }
 
     .tp-ext-form-title {
@@ -18,6 +18,7 @@
         margin-bottom: 0;
         width: auto;
         font-size: 1.05rem;
+        padding: 0 0.5rem;
     }
 
     .tp-ext-valid-file {
@@ -49,6 +50,7 @@
         text-align: center;
         padding: 0.75rem;
         border: 2px dashed black;
+        border-radius: 0.35rem;
     }
 
     .tp-upload-area.over {
@@ -77,6 +79,15 @@
         font-size: 1.15rem;
         font-weight: bold;
         margin: 0.95rem 0 0.35rem;
+    }
+
+    .tp-secondary-btn {
+        padding: 0.5rem 1rem;
+        background-color: rgb(223, 223, 223);
+        color: black;
+        border-radius: 0.5rem;
+        display: inline-block;
+        border: none;
     }
 </style>
 <form enctype="multipart/form-data; charset=utf-8">
@@ -165,7 +176,7 @@
             <p class="tp-ext-valid-file">Fichier valide. Notes intégrées.</p>
             <details style="margin-bottom: 1rem;">
                 <summary>
-                    Liste des étudiants non pris en compte
+                    Liste des étudiants non pris en compte (<span data-nb-unknown-students></span>)
                 </summary>
                 <ul data-list-unknown-students="">
 
@@ -173,7 +184,11 @@
             </details>
 
             <button type="button" class="tp-upload-btn" id="restart_btn">
-                Recommencer ?
+                Recommencer
+            </button>
+
+            <button type="button" class="tp-secondary-btn" data-force-save>
+                Forcer l'enregistrement
             </button>
         </div>
     </fieldset>

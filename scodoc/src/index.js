@@ -1,4 +1,4 @@
-import { resetTpl, manageFileUpload, delegateEvtHandler, DOM } from './utils';
+import { resetTpl, manageFileUpload, delegateEvtHandler, DOM, forceSave } from './utils';
 import formTpl from './tpls/form.html?raw';
 import packageJSON from "../package.json";
 
@@ -35,4 +35,10 @@ import packageJSON from "../package.json";
     delegateEvtHandler(document, 'click', '#restart_btn', () => {
         resetTpl();
     });
+
+    delegateEvtHandler(document, 'click', '[data-force-save]', () => {
+        forceSave();
+    });
+
+    
 })();

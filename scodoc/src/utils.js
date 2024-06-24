@@ -23,6 +23,7 @@ const fillGrades = async (listGrades, dom) => {
     const specialCharsRegex = /[\u0300-\u036f]/g;
 
     for (const item of listGrades) {
+        await delay(0);
         const currentStudentRow = dom.listGradesRows.find(el => {
             const studentNameCell =
                 el.getElementsByClassName('tf-fieldlabel')[0];
@@ -80,7 +81,6 @@ const fillGrades = async (listGrades, dom) => {
                 ? item[gradesKey]
                 : Number(formattedGrade);
             currentStudentRowInput.focus();
-            await delay(0);
 
             if (isAValidGrade) {
                 currentStudentRowInput.value = grade;
@@ -89,7 +89,6 @@ const fillGrades = async (listGrades, dom) => {
             }
             currentStudentRowInput.blur();
         }
-        await delay(0);
     }
 };
 
@@ -176,9 +175,11 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
             }
             listNonRegisteredStudents = [];
             fillGrades(listGrades, dom);
-            const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']")
-            const listUnknownStudents = document.querySelector('[data-list-unknown-students]')
+            const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']");
+            const listUnknownStudents = document.querySelector('[data-list-unknown-students]');
             listUnknownStudents.replaceChildren();
+            const nbUnknownStudents = document.querySelector('[data-nb-unknown-students]');
+            nbUnknownStudents.textContent = listNonRegisteredStudents.length
            
             listNonRegisteredStudents.forEach((_item) => {
                 const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
@@ -212,4 +213,11 @@ const delegateEvtHandler = (el, evt, sel, handler) => {
     });
 };
 
-export { resetTpl, manageFileUpload, delegateEvtHandler, DOM };
+const forceSave = () => {
+    document.querySelectorAll("[data-etudid]").forEach((item) => {
+        item.focus();
+        item.blur();
+    });
+};
+
+export { resetTpl, manageFileUpload, delegateEvtHandler, DOM, forceSave };
