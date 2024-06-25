@@ -23,7 +23,7 @@ export default ({ libName }) => {
 // @name         ScoDoc - Remplissage de notes
 // @namespace    http://scodoc.iut.cyu.fr/
 // @version      ${version}
-// @description  Remplissage des notes sur Scodoc depuis un fichier .csv ou .json
+// @description  Remplissage des notes sur Scodoc depuis un fichier .csv
 // @author       IUT CY Paris Université
 // @match        http*://scodoc.iut.cyu.fr/*
 // @grant        none
