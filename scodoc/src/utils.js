@@ -85,9 +85,9 @@ const fillGrades = async (listGrades, dom) => {
             currentStudentRowInput.focus();
 
             if (isAValidGrade) {
-                currentStudentRowInput.value = grade;
-            } else {
-                currentStudentRowInput.value = 'ABS';
+                if(!currentStudentRowInput.value.trim() || grade > currentStudentRowInput.value) {
+                    currentStudentRowInput.value = grade;
+                }
             }
             currentStudentRowInput.blur();
         }
@@ -147,7 +147,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
         }
 
         reader.readAsText(file);
-        reader.onload = e => {
+        reader.onload = async (e) => {
             let listGrades = csv2json(e.target.result, {
                 parseNumbers: true,
             });
@@ -174,7 +174,7 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                 return;
             }
             listNonRegisteredStudents = [];
-            fillGrades(listGrades, dom);
+            await fillGrades(listGrades, dom, valForMissingGrade);
             const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']");
             const listUnknownStudents = document.querySelector('[data-list-unknown-students]');
             listUnknownStudents.replaceChildren();
@@ -187,11 +187,13 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                 listUnknownStudents.append(unknownStudentTpl)
             })
 
-            Array.from(document.querySelectorAll(".note[value='']")).forEach(
+            Array.from(document.querySelectorAll(".note")).forEach(
                 input => {
-                    input.focus();
-                    input.value = valForMissingGrade;
-                    input.blur();
+                    if(input.value.trim() === "") {
+                        input.focus();
+                        input.value = valForMissingGrade;
+                        input.blur();
+                    }
                 }
             );
             DOM.firstStep.style.display = 'none';

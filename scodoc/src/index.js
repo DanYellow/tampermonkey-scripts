@@ -51,7 +51,7 @@ export const setHasUsedDnDrop = (val) => (hasUsedDnDrop = val);
     document.querySelectorAll("[data-etudid]").forEach((item) => {
         item.addEventListener("blur", (e) => {
             if(e.currentTarget.value) {
-                e.currentTarget.style.backgroundColor = "#DAEBD6";
+                e.currentTarget.style.backgroundColor = "#DAEBD6B9";
             }
         })
     })
