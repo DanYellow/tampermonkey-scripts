@@ -18,8 +18,7 @@ export default ({ libName }) => {
                 `${libName}.js.txt`
             );
             const logRows = fs.readFileSync(pathToLib).toString().split('\n');
-            logRows.unshift(`
-// ==UserScript==
+            logRows.unshift(`// ==UserScript==
 // @name         ScoDoc - Remplissage de notes
 // @namespace    http://scodoc.iut.cyu.fr/
 // @version      ${version}

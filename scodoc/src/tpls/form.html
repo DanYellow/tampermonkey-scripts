@@ -34,9 +34,7 @@
         margin-bottom: 1.35rem;
         margin-top: 0;
     }
-    .tp-ext-empty-values-list-choices label {
-        display: flex;
-    }
+
     .tp-text-bold {
         font-weight: bold;
     }
@@ -95,6 +93,16 @@
         font-size: 0.85rem;
         font-weight: bold;
     }
+
+    .tp-label {
+        display: flex;
+        gap: 0.6rem;
+        font-weight: normal;
+    }
+
+    .tp-label input {
+        margin: 0;
+    }
 </style>
 <form enctype="multipart/form-data; charset=utf-8">
     <fieldset class="tp-ext-form-container" id="tp-ext-form-container">
@@ -130,7 +138,7 @@
             <p class="tp-form-title">Gestion des notes manquantes</p>
             <ul class="tp-ext-empty-values-list-choices">
                 <li>
-                    <label id="att">
+                    <label id="att" class="tp-label">
                         <span>Mettre les notes en absent (ABS)</span>
                         <input
                             type="radio"
@@ -142,7 +150,7 @@
                     </label>
                 </li>
                 <li>
-                    <label id="exc">
+                    <label id="exc" class="tp-label">
                         <span>Excuser les notes (EXC)</span>
                         <input
                             type="radio"
