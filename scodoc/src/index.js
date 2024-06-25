@@ -2,6 +2,11 @@ import { resetTpl, manageFileUpload, delegateEvtHandler, DOM, forceSave } from '
 import formTpl from './tpls/form.html?raw';
 import packageJSON from "../package.json";
 
+let hasUsedDnDrop = false;
+
+export const getHasUsedDnDrop = () => hasUsedDnDrop;
+export const setHasUsedDnDrop = (val) => (hasUsedDnDrop = val);
+
 (async function () {
     if (DOM.listGradesRows.length === 0 && !DOM.formContainer) {
         return;
@@ -20,6 +25,9 @@ import packageJSON from "../package.json";
     await import('./drag-and-drop.js');
 
     delegateEvtHandler(document, 'change', '#grades_file', e => {
+        document.querySelectorAll("[data-etudid]").forEach((item) => {
+            item.style.backgroundColor = "";
+        });
         const valForMissingGrade =
             document.querySelector('input[name="empty_val"]:checked').value ||
             'ABS';
@@ -32,10 +40,19 @@ import packageJSON from "../package.json";
     });
 
     delegateEvtHandler(document, 'click', '[data-restart]', () => {
+        setHasUsedDnDrop(false);
         resetTpl();
     });
 
     delegateEvtHandler(document, 'click', '[data-force-save]', () => {
         forceSave();
     });
+
+    document.querySelectorAll("[data-etudid]").forEach((item) => {
+        item.addEventListener("blur", (e) => {
+            if(e.currentTarget.value) {
+                e.currentTarget.style.backgroundColor = "#DAEBD6";
+            }
+        })
+    })
 })();

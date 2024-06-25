@@ -86,8 +86,14 @@
         background-color: rgb(223, 223, 223);
         color: black;
         border-radius: 0.5rem;
-        display: inline-block;
+        display: none;
         border: none;
+    }
+
+    .tp-force-save-note {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: bold;
     }
 </style>
 <form enctype="multipart/form-data; charset=utf-8">
@@ -152,8 +158,9 @@
 
             <div data-drag-n-drop-area class="tp-upload-area">
                 <div>
-                    <p class="text-slate-600">
+                    <p>
                         Glissez-déposez votre fichier csv
+                        <span class="tp-force-save-note">Forcez l'enregistrement après avoir déposé le fichier</span>
                     </p>
                     <p>ou</p>
                     <label id="grades_field" class="tp-upload-btn">

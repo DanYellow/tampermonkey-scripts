@@ -1,5 +1,7 @@
 import csv2json from 'csvjson-csv2json';
 
+import { getHasUsedDnDrop } from './index';
+
 const defaultJSONColumnsNames = ['Nom', 'Prénom', 'Notes'];
 let JSONColumnsNames = defaultJSONColumnsNames;
 let listNonRegisteredStudents = [];
@@ -146,9 +148,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
 
         reader.readAsText(file);
         reader.onload = e => {
-            let listGrades = [];
-
-            listGrades = csv2json(e.target.result, {
+            let listGrades = csv2json(e.target.result, {
                 parseNumbers: true,
             });
 
@@ -196,6 +196,10 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
             );
             DOM.firstStep.style.display = 'none';
             DOM.resetContainer.style.display = 'block';
+
+            if(getHasUsedDnDrop()) {
+                DOM.resetContainer.querySelector("[data-force-save]").style.display = 'inline-block';
+            }
         };
     };
     reader.readAsArrayBuffer(file);
