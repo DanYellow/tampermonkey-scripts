@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.0.1...v) (2024-10-09)
+
+
+### Features
+
+* Allow forcing save when file is dragged an dropped ([75f99e8](https://github.com/DanYellow/tampermonkey-scripts/commit/75f99e881221bc1800f222c2f96b4420560e7e7d))
+* build script before update version number ([049cd23](https://github.com/DanYellow/tampermonkey-scripts/commit/049cd2337558ed0a3950d83ae5e477c8eafb1815))
+* Update UI ([8e8d992](https://github.com/DanYellow/tampermonkey-scripts/commit/8e8d992f274812e656db93fb9e6288ac8b191805))
+
+
+### Bug Fixes
+
+* Avoid race condition on input filling ([624cdc0](https://github.com/DanYellow/tampermonkey-scripts/commit/624cdc0421072f91eff72511eb845e5a862a75ce))
+
 ## [1.1.0](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.0.1...v1.1.0) (2024-06-25)
 
 
