@@ -62,15 +62,17 @@
         border-radius: 0.5rem;
         display: inline-block;
         border: none;
-    }
 
-    .tp-upload-btn input {
-        width: 0;
-        height: 0;
-    }
-    .tp-upload-btn:hover,
-    .tp-upload-btn:focus-within {
-        filter: brightness(80%);
+        input {
+            width: 0;
+            height: 0;
+        }
+
+        :hover,
+        :focus-within,
+        &.over {
+            filter: brightness(80%);
+        }
     }
 
     .tp-form-title {
@@ -110,7 +112,9 @@
             Remplisseur automatique de notes
         </legend>
 
-        <p style="margin: 0;">Prenez bien soin à respecter les règles suivantes :</p>
+        <p style="margin: 0">
+            Prenez bien soin à respecter les règles suivantes :
+        </p>
         <ul>
             <li>Format de fichier .csv</li>
             <li>
@@ -168,7 +172,10 @@
                 <div>
                     <p>
                         Glissez-déposez votre fichier csv
-                        <span class="tp-force-save-note">Forcez l'enregistrement après avoir déposé le fichier</span>
+                        <span class="tp-force-save-note"
+                            >Forcez l'enregistrement après avoir déposé le
+                            fichier</span
+                        >
                     </p>
                     <p>ou</p>
                     <label id="grades_field" class="tp-upload-btn">
@@ -189,22 +196,23 @@
 
         <div data-restart-upload-container>
             <p class="tp-ext-valid-file">Fichier valide. Notes intégrées.</p>
-            <details style="margin-bottom: 1rem;">
+            <details style="margin-bottom: 1rem">
                 <summary>
-                    Liste des étudiants inconnus (<span data-nb-unknown-students></span>)
+                    Liste des étudiants inconnus (<span
+                        data-nb-unknown-students
+                    ></span
+                    >)
                 </summary>
-                <ul data-list-unknown-students="">
-
-                </ul>
+                <ul data-list-unknown-students=""></ul>
             </details>
 
             <button type="button" class="tp-upload-btn" data-restart>
                 Recommencer
             </button>
-
+<!-- 
             <button type="button" class="tp-secondary-btn" data-force-save>
                 Forcer l'enregistrement
-            </button>
+            </button> -->
         </div>
     </fieldset>
 </form>

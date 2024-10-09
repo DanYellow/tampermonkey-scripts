@@ -89,7 +89,10 @@ const fillGrades = async (listGrades, dom) => {
                     currentStudentRowInput.value = grade;
                 }
             }
-            currentStudentRowInput.blur();
+
+            currentStudentRowInput.setAttribute("data-modified", true)
+            // function from scodoc
+            write_on_blur?.(currentStudentRowInput)
         }
     }
 };
@@ -190,9 +193,7 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
             Array.from(document.querySelectorAll(".note")).forEach(
                 input => {
                     if(input.value.trim() === "") {
-                        input.focus();
                         input.value = valForMissingGrade;
-                        input.blur();
                     }
                 }
             );
@@ -221,8 +222,8 @@ const delegateEvtHandler = (el, evt, sel, handler) => {
 
 const forceSave = () => {
     document.querySelectorAll("[data-etudid]").forEach((item) => {
-        item.focus();
-        item.blur();
+        item.setAttribute("data-modified", "true")
+        write_on_blur?.(item)
     });
 };
 
