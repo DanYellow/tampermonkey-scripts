@@ -93,6 +93,7 @@ const fillGrades = async (listGrades, dom) => {
             currentStudentRowInput.setAttribute("data-modified", true)
             // function from scodoc
             write_on_blur?.(currentStudentRowInput)
+            currentStudentRowInput.style.backgroundColor = "#DAEBD6B9";
         }
     }
 };

@@ -47,12 +47,4 @@ export const setHasUsedDnDrop = (val) => (hasUsedDnDrop = val);
     delegateEvtHandler(document, 'click', '[data-force-save]', () => {
         forceSave();
     });
-
-    document.querySelectorAll("[data-etudid]").forEach((item) => {
-        item.addEventListener("blur", (e) => {
-            if(e.currentTarget.value) {
-                e.currentTarget.style.backgroundColor = "#DAEBD6B9";
-            }
-        })
-    })
 })();
