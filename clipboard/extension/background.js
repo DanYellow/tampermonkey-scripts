@@ -7,6 +7,7 @@ const listPostRegexes = [
     /http(?:s)?:\/\/(?:www\.)?tiktok\.com\/@([a-zA-Z0-9_.]+)\/video\/([0-9_]+)/gi,
     /http(?:s)?:\/\/(?:www\.)?reddit\.com\/r\/([a-zA-Z0-9_.]+)\/comments\/([a-zA-Z0-9]+)/gi,
     /http(?:s)?:\/\/(?:www\.)?nitter\.net\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
+    /http(?:s)?:\/\/(?:www\.)?xcancel\.com\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
     /http(?:s)?:\/\/nitter\.unixfox\.eu\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
     /http(?:s)?:\/\/nitter\.catsarch\.com\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
     /http(?:s)?:\/\/nitter\.lanterne-rouge\.info\/([a-zA-Z0-9_]+)\/status\/([a-zA-Z0-9_]+)/gi,
@@ -49,6 +50,7 @@ const listAuthorizedSites = [
     "https://nitter.unixfox.eu/*",
     "https://nitter.catsarch.com/*",
     "https://nitter.poast.org/*",
+    "https://*.xcancel.com/*",
 ]
 let URLFromATag = null; 
 
