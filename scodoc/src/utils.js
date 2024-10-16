@@ -16,7 +16,11 @@ const DOM = {
     maxGrade: document.querySelector('.tf-ro-field.formnote_bareme'),
 };
 
+const listEmptyValues = ["", "abs", "exc"]
+
 const fillGrades = async (listGrades, dom) => {
+    dom.uploadBtn.disabled = true;
+
     // File headers
     const lastNameKey = JSONColumnsNames[0];
     const firstNameKey = JSONColumnsNames[1];
@@ -84,12 +88,15 @@ const fillGrades = async (listGrades, dom) => {
                 : Number(formattedGrade);
             currentStudentRowInput.focus();
 
-            if (isAValidGrade) {
-                if(!currentStudentRowInput.value.trim() || grade > currentStudentRowInput.value) {
-                    currentStudentRowInput.value = grade;
-                }
+            if (
+                isAValidGrade && 
+                (listEmptyValues.includes(currentStudentRowInput.value.trim().toLowerCase()) ||
+                grade > currentStudentRowInput.value)
+            ) {
+                currentStudentRowInput.value = grade;
             }
 
+            // For scodoc' script
             currentStudentRowInput.setAttribute("data-modified", true)
             // function from scodoc
             write_on_blur?.(currentStudentRowInput)
@@ -191,7 +198,6 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                 listUnknownStudents.append(unknownStudentTpl)
             })
 
-            const listEmptyValues = ["", "abs", "exc"]
             Array.from(document.querySelectorAll(".note")).forEach(
                 input => {
                     if(listEmptyValues.includes(input.value.trim().toLowerCase())) {
@@ -199,12 +205,9 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                     }
                 }
             );
+            DOM.uploadBtn.disabled = false;
             DOM.firstStep.style.display = 'none';
             DOM.resetContainer.style.display = 'block';
-
-            if(getHasUsedDnDrop()) {
-                DOM.resetContainer.querySelector("[data-force-save]").style.display = 'inline-block';
-            }
         };
     };
     reader.readAsArrayBuffer(file);

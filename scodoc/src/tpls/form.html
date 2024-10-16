@@ -74,10 +74,12 @@
             position: absolute;
         }
 
-        &:hover,
-        &:focus-within,
-        &.over {
-            filter: brightness(80%);
+        &:not(:has([disabled])) {
+            &:hover,
+            &:focus-within,
+            &.over {
+                filter: brightness(80%);
+            }
         }
     }
 
@@ -179,9 +181,7 @@
             <p class="tp-form-title">Fichier CSV</p>
 
             <div data-drag-n-drop-area class="tp-upload-area">
-                <p>
-                    Glissez-déposez votre fichier csv
-                </p>
+                <p>Glissez-déposez votre fichier csv</p>
                 <p>ou</p>
                 <label id="grades_field" class="tp-upload-btn">
                     <span>Sélectionnez un fichier csv</span>
@@ -190,9 +190,13 @@
                         name="grades_file"
                         id="grades_file"
                         accept=".csv"
+                        data-upload-btn=""
                     />
                 </label>
-                <p style="font-size: 0.9rem; margin-top: 1.25rem" class="tp-text-bold">
+                <p
+                    style="font-size: 0.9rem; margin-top: 1.25rem"
+                    class="tp-text-bold"
+                >
                     Fichier .csv encodé UTF-8 uniquement
                 </p>
             </div>
@@ -207,13 +211,13 @@
                     ></span
                     >)
                 </summary>
-                <ul data-list-unknown-students=""></ul>
+                <ul class="tp-list-infos" data-list-unknown-students=""></ul>
             </details>
 
             <button type="button" class="tp-upload-btn" data-restart>
                 Recommencer
             </button>
-<!-- 
+            <!-- 
             <button type="button" class="tp-secondary-btn" data-force-save>
                 Forcer l'enregistrement
             </button> -->

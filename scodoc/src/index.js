@@ -18,6 +18,7 @@ export const setHasUsedDnDrop = (val) => (hasUsedDnDrop = val);
     DOM.dragAndDropArea = document.querySelector('[data-drag-n-drop-area]');
     DOM.resetContainer = document.querySelector("[data-restart-upload-container]");
     DOM.firstStep = document.querySelector("[data-first-step]");
+    DOM.uploadBtn = document.querySelector('[data-upload-btn]');
     DOM.resetContainer.style.display = 'none';
 
     document.querySelector("[data-project-name]").textContent += ` v${packageJSON.version}`
