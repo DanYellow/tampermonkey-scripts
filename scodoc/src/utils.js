@@ -178,7 +178,7 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                 return;
             }
             listNonRegisteredStudents = [];
-            await fillGrades(listGrades, dom, valForMissingGrade);
+            await fillGrades(listGrades, dom);
             const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']");
             const listUnknownStudents = document.querySelector('[data-list-unknown-students]');
             listUnknownStudents.replaceChildren();
@@ -191,9 +191,10 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
                 listUnknownStudents.append(unknownStudentTpl)
             })
 
+            const listEmptyValues = ["", "abs", "exc"]
             Array.from(document.querySelectorAll(".note")).forEach(
                 input => {
-                    if(input.value.trim() === "") {
+                    if(listEmptyValues.includes(input.value.trim().toLowerCase())) {
                         input.value = valForMissingGrade;
                     }
                 }
