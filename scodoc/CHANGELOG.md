@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.3.0](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.2.0...v1.3.0) (2024-10-16)
+
+
+### Features
+
+* Replace exc or abs as grade if needed ([dd51949](https://github.com/DanYellow/tampermonkey-scripts/commit/dd519496773055214dfa2e16463168fbabea403d))
+* Update btn' status on drag-n-drop ([ffce98e](https://github.com/DanYellow/tampermonkey-scripts/commit/ffce98e930ae0bd574f8bebcd1411191de8ec672))
+
 ## [1.2.0](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.0.1...v1.2.0) (2024-10-16)
 
 
