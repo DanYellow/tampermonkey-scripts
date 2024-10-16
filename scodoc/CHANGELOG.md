@@ -2,7 +2,7 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-## [](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.0.1...v) (2024-10-16)
+## [1.2.0](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.0.1...v1.2.0) (2024-10-16)
 
 
 ### Features
