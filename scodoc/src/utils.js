@@ -1,7 +1,5 @@
 import csv2json from 'csvjson-csv2json';
 
-import { getHasUsedDnDrop } from './index';
-
 const defaultJSONColumnsNames = ['Nom', 'Prénom', 'Notes'];
 let JSONColumnsNames = defaultJSONColumnsNames;
 let listNonRegisteredStudents = [];
@@ -68,7 +66,7 @@ const fillGrades = async (listGrades, dom) => {
 
         if (!currentStudentRow) {
             listNonRegisteredStudents.push(
-                `${item[lastNameKey]} ${item[firstNameKey]}`
+                `${item[lastNameKey].toUpperCase()} ${item[firstNameKey]}`
             );
 
             continue;

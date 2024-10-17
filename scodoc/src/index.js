@@ -2,10 +2,10 @@ import { resetTpl, manageFileUpload, delegateEvtHandler, DOM, forceSave } from '
 import formTpl from './tpls/form.html?raw';
 import packageJSON from "../package.json";
 
-let hasUsedDnDrop = false;
+let _hasUsedDnDrop = false;
 
-export const getHasUsedDnDrop = () => hasUsedDnDrop;
-export const setHasUsedDnDrop = (val) => (hasUsedDnDrop = val);
+export const hasUsedDnDrop = () => _hasUsedDnDrop;
+export const setHasUsedDnDrop = (val) => (_hasUsedDnDrop = val);
 
 (async function () {
     if (DOM.listGradesRows.length === 0 && !DOM.formContainer) {

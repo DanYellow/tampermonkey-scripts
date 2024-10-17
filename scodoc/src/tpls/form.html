@@ -10,6 +10,16 @@
         max-width: 450px;
         overflow: hidden;
         border-radius: 0.35rem;
+        max-height: 85vh;
+        overflow-y: auto;
+        z-index: 9999;
+
+        @media (max-width: 768px) {
+            position: static;
+            margin: 0.95rem;
+            max-width: none;
+            max-height: none;
+        }
     }
 
     .tp-ext-form-title {
@@ -19,6 +29,7 @@
         width: auto;
         font-size: 1.05rem;
         padding: 0 0.5rem;
+        background-color: white;
     }
 
     .tp-ext-valid-file {
