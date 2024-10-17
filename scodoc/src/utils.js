@@ -84,7 +84,7 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
             const grade = isNotAValidGrade
                 ? item[gradesKey]
                 : Number(formattedGrade);
-            currentStudentRowInput.focus();
+            // currentStudentRowInput.focus();
 
             if (
                 isAValidGrade && 
