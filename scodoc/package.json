@@ -1,6 +1,6 @@
 {
     "name": "scodoc-remplisseur-automatique-notes",
-    "version": null,
+    "version": "1.4.0",
     "description": "",
     "main": "src/index.js",
     "scripts": {
