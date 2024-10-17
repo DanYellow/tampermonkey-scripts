@@ -88,8 +88,11 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
 
             if (
                 isAValidGrade && 
-                (listEmptyValues.includes(currentStudentRowInput.value.trim().toLowerCase()) ||
-                grade > currentStudentRowInput.value)
+                (
+                    listEmptyValues.includes(currentStudentRowInput.value.trim().toLowerCase()) ||
+                    grade > currentStudentRowInput.value || 
+                    currentStudentRowInput.value > maxGrade
+                )
             ) {
                 currentStudentRowInput.value = grade;
 
@@ -104,7 +107,7 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
             currentStudentRowInput.setAttribute("data-modified", true)
             // function from scodoc
             write_on_blur?.(currentStudentRowInput)
-            currentStudentRowInput.style.backgroundColor = "#DAEBD6B9";
+            // currentStudentRowInput.style.backgroundColor = "#DAEBD6B9";
         }
     }
 };
@@ -118,16 +121,10 @@ const resetTpl = () => {
 // We check if the grade set in
 const isScodocMaxGradeMatchWithFileMaxGrade = dom => {
     const scodocMaxGrade = Number(dom.maxGrade.textContent.match(/\d+(\.\d+)?/)?.[0] || 20);
-    
-    const fileGradeCol = JSONColumnsNames.find(item =>
-        item.toLowerCase().includes('note')
-    ).replace(',', '.');
-    const fileMaxGrade = fileGradeCol.match(/\d+(\.\d+)?/)?.[0];
 
     return {
         isMatching: true,
         scodocMaxGrade,
-        fileMaxGrade,
     };
 };
 
@@ -160,7 +157,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
             resetTpl();
             return;
         }
-        console.log("fefefe 114")
+
         reader.readAsText(file);
         reader.onload = async (e) => {
             let listGrades = csv2json(e.target.result, {
@@ -178,6 +175,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
                 isScodocMaxGradeMatchWithFileMaxGrade(dom);
 
             listStudentsUnknown = [];
+            listStudentsWithInvalidGrade = [];
             await fillGrades(listGrades, dom, gradesComparisonInfos.scodocMaxGrade);
             const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']");
             
@@ -199,6 +197,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
                 studentsUnknownContainer.style.display = 'none';
             }
 
+            
             const studentsWithInvalidGradeContainer = document.querySelector('[data-invalid-grades]');
             const listStudentsWithInvalidGradeDOM = studentsWithInvalidGradeContainer.querySelector('ul');
             listStudentsWithInvalidGradeDOM.replaceChildren();

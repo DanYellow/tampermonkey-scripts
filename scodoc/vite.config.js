@@ -7,13 +7,13 @@ const libName = 'scodoc-filling-grades';
 
 export default defineConfig({
     plugins: [tampermonkeyheader({ libName })],
-    // root: './localsite2',
+    // root: './src/',
     // publicDir: '../public/',
-    // base: './src',
+    // base: './',
     build: {
         // outDir: '../dist',
         emptyOutDir: true,
-        minify: false,
+        minify: true,
         lib: {
             entry: path.resolve(__dirname, 'src/index.js'),
             name: 'ScodocFillingGrades',
