@@ -90,7 +90,7 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
                 isAValidGrade && 
                 (
                     listEmptyValues.includes(currentStudentRowInput.value.trim().toLowerCase()) ||
-                    (grade > currentStudentRowInput.value && grade < maxGrade) || 
+                    (grade > currentStudentRowInput.value && grade <= maxGrade) || 
                     currentStudentRowInput.value > maxGrade
                 )
             ) {
