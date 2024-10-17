@@ -21,7 +21,7 @@ export const setHasUsedDnDrop = (val) => (_hasUsedDnDrop = val);
     DOM.uploadBtn = document.querySelector('[data-upload-btn]');
     DOM.resetContainer.style.display = 'none';
 
-    document.querySelector("[data-project-name]").textContent += ` v${packageJSON.version}`
+    document.querySelector("[data-project-name]").textContent += ` v${packageJSON.version.replace("-scodoc", "")}`
 
     await import('./drag-and-drop.js');
     
