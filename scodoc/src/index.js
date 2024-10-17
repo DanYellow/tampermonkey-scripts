@@ -24,7 +24,7 @@ export const setHasUsedDnDrop = (val) => (_hasUsedDnDrop = val);
     document.querySelector("[data-project-name]").textContent += ` v${packageJSON.version}`
 
     await import('./drag-and-drop.js');
-
+    
     delegateEvtHandler(document, 'change', '#grades_file', e => {
         document.querySelectorAll("[data-etudid]").forEach((item) => {
             item.style.backgroundColor = "";

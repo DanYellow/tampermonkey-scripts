@@ -109,12 +109,6 @@
         border: none;
     }
 
-    .tp-force-save-note {
-        display: block;
-        font-size: 0.85rem;
-        font-weight: bold;
-    }
-
     .tp-label {
         display: flex;
         gap: 0.6rem;
@@ -127,6 +121,10 @@
 
     .tp-list-infos {
         margin-top: 0.35rem;
+    }
+
+    .tp-small-text {
+        font-size: 0.85rem;
     }
 </style>
 <form enctype="multipart/form-data; charset=utf-8">
@@ -215,14 +213,25 @@
 
         <div data-restart-upload-container>
             <p class="tp-ext-valid-file">Fichier valide. Notes intégrées.</p>
-            <details style="margin-bottom: 1rem">
+            <details style="margin-bottom: 1rem" data-unknown-students>
                 <summary>
                     Liste des étudiants inconnus (<span
                         data-nb-unknown-students
                     ></span
                     >)
                 </summary>
-                <ul class="tp-list-infos" data-list-unknown-students=""></ul>
+                <ul class="tp-list-infos"></ul>
+            </details>
+
+            <details style="margin-bottom: 1rem" data-invalid-grades>
+                <summary>
+                    Liste des étudiants avec note incorrecte (<span
+                        data-nb-invalid-grade-students
+                    ></span
+                    >)
+                </summary>
+                <p class="tp-small-text">Ces étudiants ont une note inférieure à 0 ou supérieure à la note maximale définie</p>
+                <ul class="tp-list-infos"></ul>
             </details>
 
             <button type="button" class="tp-upload-btn" data-restart>

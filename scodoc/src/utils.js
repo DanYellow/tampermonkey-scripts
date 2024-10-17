@@ -2,7 +2,8 @@ import csv2json from 'csvjson-csv2json';
 
 const defaultJSONColumnsNames = ['Nom', 'Prénom', 'Notes'];
 let JSONColumnsNames = defaultJSONColumnsNames;
-let listNonRegisteredStudents = [];
+let listStudentsUnknown = [];
+let listStudentsWithInvalidGrade = [];
 
 const delay = ms => {
     return new Promise(resolve => setTimeout(resolve, ms));
@@ -16,7 +17,7 @@ const DOM = {
 
 const listEmptyValues = ["", "abs", "exc"]
 
-const fillGrades = async (listGrades, dom) => {
+const fillGrades = async (listGrades, dom, maxGrade) => {
     dom.uploadBtn.disabled = true;
 
     // File headers
@@ -65,7 +66,7 @@ const fillGrades = async (listGrades, dom) => {
         });
 
         if (!currentStudentRow) {
-            listNonRegisteredStudents.push(
+            listStudentsUnknown.push(
                 `${item[lastNameKey].toUpperCase()} ${item[firstNameKey]}`
             );
 
@@ -76,7 +77,6 @@ const fillGrades = async (listGrades, dom) => {
             'input[class^="note"]'
         );
         if (currentStudentRowInput) {
-            document.body.click();
             const formattedGrade = String(item[gradesKey]).replace(',', '.');
             const isNotAValidGrade = Number.isNaN(Number(formattedGrade));
             const isAValidGrade = !isNotAValidGrade;
@@ -92,6 +92,12 @@ const fillGrades = async (listGrades, dom) => {
                 grade > currentStudentRowInput.value)
             ) {
                 currentStudentRowInput.value = grade;
+
+                if(grade > maxGrade || grade < 0) {
+                    listStudentsWithInvalidGrade.push(
+                        `${item[lastNameKey].toUpperCase()} ${item[firstNameKey]}`
+                    )
+                }
             }
 
             // For scodoc' script
@@ -111,15 +117,15 @@ const resetTpl = () => {
 
 // We check if the grade set in
 const isScodocMaxGradeMatchWithFileMaxGrade = dom => {
-    const scodocMaxGrade = dom.maxGrade.textContent.match(/\d+(\.\d+)?/)[0];
-
+    const scodocMaxGrade = Number(dom.maxGrade.textContent.match(/\d+(\.\d+)?/)?.[0] || 20);
+    
     const fileGradeCol = JSONColumnsNames.find(item =>
         item.toLowerCase().includes('note')
     ).replace(',', '.');
-    const fileMaxGrade = fileGradeCol.match(/\d+(\.\d+)?/)[0];
+    const fileMaxGrade = fileGradeCol.match(/\d+(\.\d+)?/)?.[0];
 
     return {
-        isMatching: Number(fileMaxGrade) === Number(scodocMaxGrade),
+        isMatching: true,
         scodocMaxGrade,
         fileMaxGrade,
     };
@@ -154,7 +160,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
             resetTpl();
             return;
         }
-
+        console.log("fefefe 114")
         reader.readAsText(file);
         reader.onload = async (e) => {
             let listGrades = csv2json(e.target.result, {
@@ -170,31 +176,46 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
 
             const gradesComparisonInfos =
                 isScodocMaxGradeMatchWithFileMaxGrade(dom);
-            if (!gradesComparisonInfos.isMatching) {
-                alert(`
-La note maximale de votre évaluation sur ScoDoc (/${Number(
-                    gradesComparisonInfos.scodocMaxGrade
-                )}) ne correspond pas à la note maximale de votre fichier d'évaluation (/${Number(
-                    gradesComparisonInfos.fileMaxGrade
-                )}).\n
-Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'entrez pas les notes de la bonne évaluation sur ScoDoc.
-                `);
-                resetTpl();
-                return;
-            }
-            listNonRegisteredStudents = [];
-            await fillGrades(listGrades, dom);
+
+            listStudentsUnknown = [];
+            await fillGrades(listGrades, dom, gradesComparisonInfos.scodocMaxGrade);
             const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']");
-            const listUnknownStudents = document.querySelector('[data-list-unknown-students]');
-            listUnknownStudents.replaceChildren();
+            
+            const studentsUnknownContainer = document.querySelector('[data-unknown-students]');
+            const listStudentsUnknownDOM = studentsUnknownContainer.querySelector('ul');
+            listStudentsUnknownDOM.replaceChildren();
             const nbUnknownStudents = document.querySelector('[data-nb-unknown-students]');
-            nbUnknownStudents.textContent = listNonRegisteredStudents.length
+            nbUnknownStudents.textContent = listStudentsUnknown.length
            
-            listNonRegisteredStudents.forEach((_item) => {
-                const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
-                unknownStudentTpl.querySelector("li").textContent = _item;
-                listUnknownStudents.append(unknownStudentTpl)
-            })
+            if (listStudentsUnknown.length > 0) {
+                studentsUnknownContainer.style.display = '';
+                listStudentsUnknown.forEach((_item) => {
+                    const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
+                    unknownStudentTpl.querySelector("li").textContent = _item;
+                    
+                    listStudentsUnknownDOM.append(unknownStudentTpl)
+                })
+            } else {
+                studentsUnknownContainer.style.display = 'none';
+            }
+
+            const studentsWithInvalidGradeContainer = document.querySelector('[data-invalid-grades]');
+            const listStudentsWithInvalidGradeDOM = studentsWithInvalidGradeContainer.querySelector('ul');
+            listStudentsWithInvalidGradeDOM.replaceChildren();
+            const nbInvalidGradeStudents = document.querySelector('[data-nb-invalid-grade-students]');
+            nbInvalidGradeStudents.textContent = listStudentsWithInvalidGrade.length
+
+            if (listStudentsWithInvalidGrade.length > 0) {
+                studentsWithInvalidGradeContainer.style.display = '';
+                listStudentsWithInvalidGrade.forEach((_item) => {
+                    const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
+                    unknownStudentTpl.querySelector("li").textContent = _item;
+                    
+                    listStudentsWithInvalidGradeDOM.append(unknownStudentTpl)
+                })
+            } else {
+                studentsWithInvalidGradeContainer.style.display = 'none';
+            }
 
             Array.from(document.querySelectorAll(".note")).forEach(
                 input => {

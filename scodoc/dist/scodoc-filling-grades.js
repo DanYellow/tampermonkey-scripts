@@ -10,15 +10,1008 @@
 // ==/UserScript==
 /* eslint-disable */
                 
-(function(O,V){typeof exports=="object"&&typeof module<"u"?V(exports):typeof define=="function"&&define.amd?define(["exports"],V):(O=typeof globalThis<"u"?globalThis:O||self,V(O.ScodocFillingGrades={}))})(this,function(O){"use strict";var V=typeof globalThis<"u"?globalThis:typeof window<"u"?window:typeof global<"u"?global:typeof self<"u"?self:{};function re(o){return o&&o.__esModule&&Object.prototype.hasOwnProperty.call(o,"default")?o.default:o}var I={exports:{}};(function(o,m){(function(){var N="We could not detect the separator.",v="Empty CSV. Please provide something.",C="Could not detect header. Ensure first row cotains your column headers.",S=[",",";","	"],_={",":"comma",";":"semicolon","	":"tab"};function P(u){var c={},a;return S.forEach(function(i,p){var e=new RegExp(i,"g");c[i]=(u.match(e)||[]).length,a=!a||c[i]>c[a]?i:a}),a}function b(){var u=[].slice.call(arguments),c=u.reduce(function(a,i){return a.length>i.length?a:i},[]);return c.map(function(a,i){return u.map(function(p){return p[i]})})}function G(u){for(var c={},a=0;a<u.length;a++){var i=u[a];c[i]===void 0?c[i]=0:c[i]++}for(var p=[],a=u.length-1;a>=0;a--){var i=u[a];c[i]>0&&(i=i+"__"+c[i]--),p.unshift(i)}return p}function F(u,c){if(c||(c={}),u.length==0)throw v;var a=c.separator||P(u);if(!a)throw N;var i=[];try{var i=j.parse(u,_[a])}catch(D){var p=u.lastIndexOf(`
-`,D.offset),e=u.indexOf(`
-`,D.offset),L=u.substring(p>=-1?p:0,e>-1?e:u.length);throw D.message+" On line "+D.line+" and column "+D.column+`.
-`+L}c.transpose&&(i=b.apply(this,i));var y=i.shift();if(y.length==0)throw C;y=y.map(function(D){return D.trim().replace(/(^")|("$)/g,"")}),y=G(y);for(var d=c.hash?{}:[],M=0;M<i.length;M++){for(var E={},B,k=0;k<y.length;k++){var T=(i[M][k]||"").trim().replace(/(^")|("$)/g,""),R=T===""?NaN:T-0;if(c.hash&&k==0)B=T;else if(c.parseJSON||c.parseNumbers&&!isNaN(R))try{E[y[k]]=JSON.parse(T)}catch{E[y[k]]=T}else E[y[k]]=T}c.hash?d[B]=E:d.push(E)}return d}var j=function(){function u(a){return'"'+a.replace(/\\/g,"\\\\").replace(/"/g,'\\"').replace(/\x08/g,"\\b").replace(/\t/g,"\\t").replace(/\n/g,"\\n").replace(/\f/g,"\\f").replace(/\r/g,"\\r").replace(/[\x00-\x07\x0B\x0E-\x1F\x80-\uFFFF]/g,escape)+'"'}var c={parse:function(a,i){var p={comma:M,semicolon:E,tab:B,sv:k,line:T,field:R,char:D};if(i!==void 0){if(p[i]===void 0)throw new Error("Invalid rule name: "+u(i)+".")}else i="comma";var e=0,L=0,y=[];function d(n){e<L||(e>L&&(L=e,y=[]),y.push(n))}function M(){var n,t,r,l;return r=e,l=e,n=function(s){return U=","}()?"":null,n!==null?(t=k(),t!==null?n=[n,t]:(n=null,e=l)):(n=null,e=l),n!==null&&(n=function(s,h){return h}(r,n[1])),n===null&&(e=r),n}function E(){var n,t,r,l;return r=e,l=e,n=function(s){return U=";"}()?"":null,n!==null?(t=k(),t!==null?n=[n,t]:(n=null,e=l)):(n=null,e=l),n!==null&&(n=function(s,h){return h}(r,n[1])),n===null&&(e=r),n}function B(){var n,t,r,l;return r=e,l=e,n=function(s){return U="	"}()?"":null,n!==null?(t=k(),t!==null?n=[n,t]:(n=null,e=l)):(n=null,e=l),n!==null&&(n=function(s,h){return h}(r,n[1])),n===null&&(e=r),n}function k(){var n,t,r,l,s,h,g,f,x;for(h=e,g=e,n=[],/^[\n\r]/.test(a.charAt(e))?(t=a.charAt(e),e++):(t=null,d("[\\n\\r]"));t!==null;)n.push(t),/^[\n\r]/.test(a.charAt(e))?(t=a.charAt(e),e++):(t=null,d("[\\n\\r]"));if(n!==null)if(t=T(),t!==null){if(r=[],f=e,x=e,/^[\n\r]/.test(a.charAt(e))?(s=a.charAt(e),e++):(s=null,d("[\\n\\r]")),s!==null)for(l=[];s!==null;)l.push(s),/^[\n\r]/.test(a.charAt(e))?(s=a.charAt(e),e++):(s=null,d("[\\n\\r]"));else l=null;for(l!==null?(s=T(),s!==null?l=[l,s]:(l=null,e=x)):(l=null,e=x),l!==null&&(l=function(z,w){return w}(f,l[1])),l===null&&(e=f);l!==null;){if(r.push(l),f=e,x=e,/^[\n\r]/.test(a.charAt(e))?(s=a.charAt(e),e++):(s=null,d("[\\n\\r]")),s!==null)for(l=[];s!==null;)l.push(s),/^[\n\r]/.test(a.charAt(e))?(s=a.charAt(e),e++):(s=null,d("[\\n\\r]"));else l=null;l!==null?(s=T(),s!==null?l=[l,s]:(l=null,e=x)):(l=null,e=x),l!==null&&(l=function(z,w){return w}(f,l[1])),l===null&&(e=f)}if(r!==null){for(l=[],/^[\n\r]/.test(a.charAt(e))?(s=a.charAt(e),e++):(s=null,d("[\\n\\r]"));s!==null;)l.push(s),/^[\n\r]/.test(a.charAt(e))?(s=a.charAt(e),e++):(s=null,d("[\\n\\r]"));l!==null?n=[n,t,r,l]:(n=null,e=g)}else n=null,e=g}else n=null,e=g;else n=null,e=g;return n!==null&&(n=function(z,w,q){return q.unshift(w),q}(h,n[1],n[2])),n===null&&(e=h),n}function T(){var n,t,r,l,s,h,g,f,x;if(h=e,g=e,n=R(),n!==null){for(t=[],f=e,x=e,a.length>e?(r=a.charAt(e),e++):(r=null,d("any character")),r!==null?(l=function(z,w){return w==U}(e,r)?"":null,l!==null?(s=R(),s!==null?r=[r,l,s]:(r=null,e=x)):(r=null,e=x)):(r=null,e=x),r!==null&&(r=function(z,w,q){return q}(f,r[0],r[2])),r===null&&(e=f);r!==null;)t.push(r),f=e,x=e,a.length>e?(r=a.charAt(e),e++):(r=null,d("any character")),r!==null?(l=function(z,w){return w==U}(e,r)?"":null,l!==null?(s=R(),s!==null?r=[r,l,s]:(r=null,e=x)):(r=null,e=x)):(r=null,e=x),r!==null&&(r=function(z,w,q){return q}(f,r[0],r[2])),r===null&&(e=f);t!==null?(r=function(z,w,q){return!!w||q.length}(e,n,t)?"":null,r!==null?n=[n,t,r]:(n=null,e=g)):(n=null,e=g)}else n=null,e=g;return n!==null&&(n=function(z,w,q){return q.unshift(w),q}(h,n[0],n[1])),n===null&&(e=h),n}function R(){var n,t,r,l,s,h;if(l=e,s=e,a.charCodeAt(e)===34?(n='"',e++):(n=null,d('"\\""')),n!==null){for(t=[],r=D();r!==null;)t.push(r),r=D();t!==null?(a.charCodeAt(e)===34?(r='"',e++):(r=null,d('"\\""')),r!==null?n=[n,t,r]:(n=null,e=s)):(n=null,e=s)}else n=null,e=s;if(n!==null&&(n=function(g,f){return f.join("")}(l,n[1])),n===null&&(e=l),n===null){for(l=e,n=[],s=e,h=e,/^[^\n\r]/.test(a.charAt(e))?(t=a.charAt(e),e++):(t=null,d("[^\\n\\r]")),t!==null?(r=function(g,f){return f!=U}(e,t)?"":null,r!==null?t=[t,r]:(t=null,e=h)):(t=null,e=h),t!==null&&(t=function(g,f){return f}(s,t[0])),t===null&&(e=s);t!==null;)n.push(t),s=e,h=e,/^[^\n\r]/.test(a.charAt(e))?(t=a.charAt(e),e++):(t=null,d("[^\\n\\r]")),t!==null?(r=function(g,f){return f!=U}(e,t)?"":null,r!==null?t=[t,r]:(t=null,e=h)):(t=null,e=h),t!==null&&(t=function(g,f){return f}(s,t[0])),t===null&&(e=s);n!==null&&(n=function(g,f){return f.join("")}(l,n)),n===null&&(e=l)}return n}function D(){var n,t,r,l;return r=e,l=e,a.charCodeAt(e)===34?(n='"',e++):(n=null,d('"\\""')),n!==null?(a.charCodeAt(e)===34?(t='"',e++):(t=null,d('"\\""')),t!==null?n=[n,t]:(n=null,e=l)):(n=null,e=l),n!==null&&(n=function(s){return'"'}()),n===null&&(e=r),n===null&&(/^[^"]/.test(a.charAt(e))?(n=a.charAt(e),e++):(n=null,d('[^"]'))),n}function me(n){n.sort();for(var t=null,r=[],l=0;l<n.length;l++)n[l]!==t&&(r.push(n[l]),t=n[l]);return r}function he(){for(var n=1,t=1,r=!1,l=0;l<Math.max(e,L);l++){var s=a.charAt(l);s===`
-`?(r||n++,t=1,r=!1):s==="\r"||s==="\u2028"||s==="\u2029"?(n++,t=1,r=!0):(t++,r=!1)}return{line:n,column:t}}var U=",",ee=p[i]();if(ee===null||e!==a.length){var Q=Math.max(e,L),ve=Q<a.length?a.charAt(Q):null,ne=he();throw new this.SyntaxError(me(y),ve,Q,ne.line,ne.column)}return ee},toSource:function(){return this._source}};return c.SyntaxError=function(a,i,p,e,L){function y(d,M){var E,B;switch(d.length){case 0:E="end of input";break;case 1:E=d[0];break;default:E=d.slice(0,d.length-1).join(", ")+" or "+d[d.length-1]}return B=M?u(M):"end of input","Expected "+E+" but "+B+" found."}this.name="SyntaxError",this.expected=a,this.found=i,this.message=y(a,i),this.offset=p,this.line=e,this.column=L},c.SyntaxError.prototype=Error.prototype,c}();o.exports&&(m=o.exports=F),m.csv2json=F}).call(V)})(I,I.exports);var te=I.exports;const le=re(te);let $=["Nom","Prénom","Notes"],H=[];const ae=o=>new Promise(m=>setTimeout(m,o)),A={listGradesRows:Array.from(document.querySelectorAll("tr.etud_elem")),formContainer:document.getElementById("tp-ext-form-container"),maxGrade:document.querySelector(".tf-ro-field.formnote_bareme")},Y=["","abs","exc"],se=async(o,m)=>{m.uploadBtn.disabled=!0;const N=$[0],v=$[1],C=$[2],S=/[\u0300-\u036f]/g;for(const _ of o){await ae(0);const P=m.listGradesRows.find(G=>{const F=G.getElementsByClassName("tf-fieldlabel")[0];if(!F)return;const j=F.textContent.normalize("NFD").replaceAll(S,"").replaceAll("-"," ").toLowerCase(),u=_[N].normalize("NFD").replaceAll(S,"").replaceAll("-"," ").toLowerCase(),a=_[v].normalize("NFD").replaceAll(S,"").replaceAll("-"," ").toLowerCase().split(" ").some(p=>j.includes(p)),i=u.split(" ").some(p=>j.includes(p));return a&&i});if(!P){H.push(`${_[N].toUpperCase()} ${_[v]}`);continue}const b=P.querySelector('input[class^="note"]');if(b){document.body.click();const G=String(_[C]).replace(",","."),F=Number.isNaN(Number(G)),j=!F,u=F?_[C]:Number(G);b.focus(),j&&(Y.includes(b.value.trim().toLowerCase())||u>b.value)&&(b.value=u),b.setAttribute("data-modified",!0),write_on_blur==null||write_on_blur(b),b.style.backgroundColor="#DAEBD6B9"}}},J=()=>{document.querySelector("#grades_file").value="",A.firstStep.style.display="block",A.resetContainer.style.display="none"},oe=o=>{const m=o.maxGrade.textContent.match(/\d+(\.\d+)?/)[0],v=$.find(C=>C.toLowerCase().includes("note")).replace(",",".").match(/\d+(\.\d+)?/)[0];return{isMatching:Number(v)===Number(m),scodocMaxGrade:m,fileMaxGrade:v}},ie=({target:o,valForMissingGrade:m,dom:N})=>{const v=o.target.files[0],C=v.name,S=C.lastIndexOf("."),_=["csv"],P=C.substring(S+1);if(!_.includes(P)){alert(`Votre fichier n'est pas au format ${_.join(" ou ")}`);return}const b=new FileReader;b.onload=G=>{try{new TextDecoder("utf8",{fatal:!0}).decode(G.target.result)}catch{alert("Votre fichier doit être encodé en UTF-8. Veuillez effectuer ce changement."),J();return}b.readAsText(v),b.onload=async F=>{let j=le(F.target.result,{parseNumbers:!0});if(j.some(p=>Object.keys(p).length!==3)){alert("Votre fichier ne contient pas que trois colonnes.");return}$=Object.keys(j[0]);const u=oe(N);if(!u.isMatching){alert(`
-La note maximale de votre évaluation sur ScoDoc (/${Number(u.scodocMaxGrade)}) ne correspond pas à la note maximale de votre fichier d'évaluation (/${Number(u.fileMaxGrade)}).
-
-Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'entrez pas les notes de la bonne évaluation sur ScoDoc.
-                `),J();return}H=[],await se(j,N);const c=document.querySelector("[data-template-id='unknown-student']"),a=document.querySelector("[data-list-unknown-students]");a.replaceChildren();const i=document.querySelector("[data-nb-unknown-students]");i.textContent=H.length,H.forEach(p=>{const e=c.content.cloneNode(!0);e.querySelector("li").textContent=p,a.append(e)}),Array.from(document.querySelectorAll(".note")).forEach(p=>{Y.includes(p.value.trim().toLowerCase())&&(p.value=m)}),A.uploadBtn.disabled=!1,A.firstStep.style.display="none",A.resetContainer.style.display="block"}},b.readAsArrayBuffer(v)},K=(o,m,N,v)=>{o.addEventListener(m,function(C){let S=C.target;for(;S&&S!==this;)S.matches(N)&&v.call(S,C),S=S.parentNode})},ue=()=>{document.querySelectorAll("[data-etudid]").forEach(o=>{o.setAttribute("data-modified","true"),write_on_blur==null||write_on_blur(o)})},ce=`<style>\r
+(function(global2, factory) {
+  typeof exports === "object" && typeof module !== "undefined" ? factory(exports) : typeof define === "function" && define.amd ? define(["exports"], factory) : (global2 = typeof globalThis !== "undefined" ? globalThis : global2 || self, factory(global2.ScodocFillingGrades = {}));
+})(this, function(exports2) {
+  "use strict";
+  var commonjsGlobal = typeof globalThis !== "undefined" ? globalThis : typeof window !== "undefined" ? window : typeof global !== "undefined" ? global : typeof self !== "undefined" ? self : {};
+  function getDefaultExportFromCjs(x) {
+    return x && x.__esModule && Object.prototype.hasOwnProperty.call(x, "default") ? x["default"] : x;
+  }
+  var csv2json$1 = { exports: {} };
+  (function(module2, exports3) {
+    (function() {
+      var errorDetectingSeparator = "We could not detect the separator.", errorEmpty = "Empty CSV. Please provide something.", errorEmptyHeader = "Could not detect header. Ensure first row cotains your column headers.", separators = [",", ";", "	"], pegjsSeparatorNames = {
+        ",": "comma",
+        ";": "semicolon",
+        "	": "tab"
+      };
+      function detectSeparator(csv) {
+        var counts = {}, sepMax;
+        separators.forEach(function(sep, i) {
+          var re = new RegExp(sep, "g");
+          counts[sep] = (csv.match(re) || []).length;
+          sepMax = !sepMax || counts[sep] > counts[sepMax] ? sep : sepMax;
+        });
+        return sepMax;
+      }
+      function zip() {
+        var args = [].slice.call(arguments);
+        var longest = args.reduce(function(a, b) {
+          return a.length > b.length ? a : b;
+        }, []);
+        return longest.map(function(_, i) {
+          return args.map(function(array) {
+            return array[i];
+          });
+        });
+      }
+      function uniquify(keys) {
+        var counts = {};
+        for (var i = 0; i < keys.length; i++) {
+          var key = keys[i];
+          if (counts[key] === void 0) {
+            counts[key] = 0;
+          } else {
+            counts[key]++;
+          }
+        }
+        var result = [];
+        for (var i = keys.length - 1; i >= 0; i--) {
+          var key = keys[i];
+          if (counts[key] > 0)
+            key = key + "__" + counts[key]--;
+          result.unshift(key);
+        }
+        return result;
+      }
+      function convert(csv, options) {
+        options || (options = {});
+        if (csv.length == 0)
+          throw errorEmpty;
+        var separator = options.separator || detectSeparator(csv);
+        if (!separator)
+          throw errorDetectingSeparator;
+        var a = [];
+        try {
+          var a = csvParser.parse(csv, pegjsSeparatorNames[separator]);
+        } catch (error) {
+          var start = csv.lastIndexOf("\n", error.offset), end = csv.indexOf("\n", error.offset), line = csv.substring(start >= -1 ? start : 0, end > -1 ? end : csv.length);
+          throw error.message + " On line " + error.line + " and column " + error.column + ".\n" + line;
+        }
+        if (options.transpose)
+          a = zip.apply(this, a);
+        var keys = a.shift();
+        if (keys.length == 0)
+          throw errorEmptyHeader;
+        keys = keys.map(function(key) {
+          return key.trim().replace(/(^")|("$)/g, "");
+        });
+        keys = uniquify(keys);
+        var json = options.hash ? {} : [];
+        for (var l = 0; l < a.length; l++) {
+          var row = {}, hashKey;
+          for (var i = 0; i < keys.length; i++) {
+            var value = (a[l][i] || "").trim().replace(/(^")|("$)/g, "");
+            var number = value === "" ? NaN : value - 0;
+            if (options.hash && i == 0) {
+              hashKey = value;
+            } else {
+              if (options.parseJSON || options.parseNumbers && !isNaN(number)) {
+                try {
+                  row[keys[i]] = JSON.parse(value);
+                } catch (error) {
+                  row[keys[i]] = value;
+                }
+              } else {
+                row[keys[i]] = value;
+              }
+            }
+          }
+          if (options.hash)
+            json[hashKey] = row;
+          else
+            json.push(row);
+        }
+        return json;
+      }
+      var csvParser = function() {
+        function quote(s) {
+          return '"' + s.replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\x08/g, "\\b").replace(/\t/g, "\\t").replace(/\n/g, "\\n").replace(/\f/g, "\\f").replace(/\r/g, "\\r").replace(/[\x00-\x07\x0B\x0E-\x1F\x80-\uFFFF]/g, escape) + '"';
+        }
+        var result = {
+          /*
+           * Parses the input with a generated parser. If the parsing is successfull,
+           * returns a value explicitly or implicitly specified by the grammar from
+           * which the parser was generated (see |PEG.buildParser|). If the parsing is
+           * unsuccessful, throws |PEG.parser.SyntaxError| describing the error.
+           */
+          parse: function(input, startRule) {
+            var parseFunctions = {
+              "comma": parse_comma,
+              "semicolon": parse_semicolon,
+              "tab": parse_tab,
+              "sv": parse_sv,
+              "line": parse_line,
+              "field": parse_field,
+              "char": parse_char
+            };
+            if (startRule !== void 0) {
+              if (parseFunctions[startRule] === void 0) {
+                throw new Error("Invalid rule name: " + quote(startRule) + ".");
+              }
+            } else {
+              startRule = "comma";
+            }
+            var pos = 0;
+            var rightmostFailuresPos = 0;
+            var rightmostFailuresExpected = [];
+            function matchFailed(failure) {
+              if (pos < rightmostFailuresPos) {
+                return;
+              }
+              if (pos > rightmostFailuresPos) {
+                rightmostFailuresPos = pos;
+                rightmostFailuresExpected = [];
+              }
+              rightmostFailuresExpected.push(failure);
+            }
+            function parse_comma() {
+              var result0, result1;
+              var pos0, pos1;
+              pos0 = pos;
+              pos1 = pos;
+              result0 = function(offset2) {
+                return separator = ",";
+              }() ? "" : null;
+              if (result0 !== null) {
+                result1 = parse_sv();
+                if (result1 !== null) {
+                  result0 = [result0, result1];
+                } else {
+                  result0 = null;
+                  pos = pos1;
+                }
+              } else {
+                result0 = null;
+                pos = pos1;
+              }
+              if (result0 !== null) {
+                result0 = function(offset2, sv) {
+                  return sv;
+                }(pos0, result0[1]);
+              }
+              if (result0 === null) {
+                pos = pos0;
+              }
+              return result0;
+            }
+            function parse_semicolon() {
+              var result0, result1;
+              var pos0, pos1;
+              pos0 = pos;
+              pos1 = pos;
+              result0 = function(offset2) {
+                return separator = ";";
+              }() ? "" : null;
+              if (result0 !== null) {
+                result1 = parse_sv();
+                if (result1 !== null) {
+                  result0 = [result0, result1];
+                } else {
+                  result0 = null;
+                  pos = pos1;
+                }
+              } else {
+                result0 = null;
+                pos = pos1;
+              }
+              if (result0 !== null) {
+                result0 = function(offset2, sv) {
+                  return sv;
+                }(pos0, result0[1]);
+              }
+              if (result0 === null) {
+                pos = pos0;
+              }
+              return result0;
+            }
+            function parse_tab() {
+              var result0, result1;
+              var pos0, pos1;
+              pos0 = pos;
+              pos1 = pos;
+              result0 = function(offset2) {
+                return separator = "	";
+              }() ? "" : null;
+              if (result0 !== null) {
+                result1 = parse_sv();
+                if (result1 !== null) {
+                  result0 = [result0, result1];
+                } else {
+                  result0 = null;
+                  pos = pos1;
+                }
+              } else {
+                result0 = null;
+                pos = pos1;
+              }
+              if (result0 !== null) {
+                result0 = function(offset2, sv) {
+                  return sv;
+                }(pos0, result0[1]);
+              }
+              if (result0 === null) {
+                pos = pos0;
+              }
+              return result0;
+            }
+            function parse_sv() {
+              var result0, result1, result22, result3, result4;
+              var pos0, pos1, pos2, pos3;
+              pos0 = pos;
+              pos1 = pos;
+              result0 = [];
+              if (/^[\n\r]/.test(input.charAt(pos))) {
+                result1 = input.charAt(pos);
+                pos++;
+              } else {
+                result1 = null;
+                {
+                  matchFailed("[\\n\\r]");
+                }
+              }
+              while (result1 !== null) {
+                result0.push(result1);
+                if (/^[\n\r]/.test(input.charAt(pos))) {
+                  result1 = input.charAt(pos);
+                  pos++;
+                } else {
+                  result1 = null;
+                  {
+                    matchFailed("[\\n\\r]");
+                  }
+                }
+              }
+              if (result0 !== null) {
+                result1 = parse_line();
+                if (result1 !== null) {
+                  result22 = [];
+                  pos2 = pos;
+                  pos3 = pos;
+                  if (/^[\n\r]/.test(input.charAt(pos))) {
+                    result4 = input.charAt(pos);
+                    pos++;
+                  } else {
+                    result4 = null;
+                    {
+                      matchFailed("[\\n\\r]");
+                    }
+                  }
+                  if (result4 !== null) {
+                    result3 = [];
+                    while (result4 !== null) {
+                      result3.push(result4);
+                      if (/^[\n\r]/.test(input.charAt(pos))) {
+                        result4 = input.charAt(pos);
+                        pos++;
+                      } else {
+                        result4 = null;
+                        {
+                          matchFailed("[\\n\\r]");
+                        }
+                      }
+                    }
+                  } else {
+                    result3 = null;
+                  }
+                  if (result3 !== null) {
+                    result4 = parse_line();
+                    if (result4 !== null) {
+                      result3 = [result3, result4];
+                    } else {
+                      result3 = null;
+                      pos = pos3;
+                    }
+                  } else {
+                    result3 = null;
+                    pos = pos3;
+                  }
+                  if (result3 !== null) {
+                    result3 = function(offset2, data) {
+                      return data;
+                    }(pos2, result3[1]);
+                  }
+                  if (result3 === null) {
+                    pos = pos2;
+                  }
+                  while (result3 !== null) {
+                    result22.push(result3);
+                    pos2 = pos;
+                    pos3 = pos;
+                    if (/^[\n\r]/.test(input.charAt(pos))) {
+                      result4 = input.charAt(pos);
+                      pos++;
+                    } else {
+                      result4 = null;
+                      {
+                        matchFailed("[\\n\\r]");
+                      }
+                    }
+                    if (result4 !== null) {
+                      result3 = [];
+                      while (result4 !== null) {
+                        result3.push(result4);
+                        if (/^[\n\r]/.test(input.charAt(pos))) {
+                          result4 = input.charAt(pos);
+                          pos++;
+                        } else {
+                          result4 = null;
+                          {
+                            matchFailed("[\\n\\r]");
+                          }
+                        }
+                      }
+                    } else {
+                      result3 = null;
+                    }
+                    if (result3 !== null) {
+                      result4 = parse_line();
+                      if (result4 !== null) {
+                        result3 = [result3, result4];
+                      } else {
+                        result3 = null;
+                        pos = pos3;
+                      }
+                    } else {
+                      result3 = null;
+                      pos = pos3;
+                    }
+                    if (result3 !== null) {
+                      result3 = function(offset2, data) {
+                        return data;
+                      }(pos2, result3[1]);
+                    }
+                    if (result3 === null) {
+                      pos = pos2;
+                    }
+                  }
+                  if (result22 !== null) {
+                    result3 = [];
+                    if (/^[\n\r]/.test(input.charAt(pos))) {
+                      result4 = input.charAt(pos);
+                      pos++;
+                    } else {
+                      result4 = null;
+                      {
+                        matchFailed("[\\n\\r]");
+                      }
+                    }
+                    while (result4 !== null) {
+                      result3.push(result4);
+                      if (/^[\n\r]/.test(input.charAt(pos))) {
+                        result4 = input.charAt(pos);
+                        pos++;
+                      } else {
+                        result4 = null;
+                        {
+                          matchFailed("[\\n\\r]");
+                        }
+                      }
+                    }
+                    if (result3 !== null) {
+                      result0 = [result0, result1, result22, result3];
+                    } else {
+                      result0 = null;
+                      pos = pos1;
+                    }
+                  } else {
+                    result0 = null;
+                    pos = pos1;
+                  }
+                } else {
+                  result0 = null;
+                  pos = pos1;
+                }
+              } else {
+                result0 = null;
+                pos = pos1;
+              }
+              if (result0 !== null) {
+                result0 = function(offset2, first, rest) {
+                  rest.unshift(first);
+                  return rest;
+                }(pos0, result0[1], result0[2]);
+              }
+              if (result0 === null) {
+                pos = pos0;
+              }
+              return result0;
+            }
+            function parse_line() {
+              var result0, result1, result22, result3, result4;
+              var pos0, pos1, pos2, pos3;
+              pos0 = pos;
+              pos1 = pos;
+              result0 = parse_field();
+              if (result0 !== null) {
+                result1 = [];
+                pos2 = pos;
+                pos3 = pos;
+                if (input.length > pos) {
+                  result22 = input.charAt(pos);
+                  pos++;
+                } else {
+                  result22 = null;
+                  {
+                    matchFailed("any character");
+                  }
+                }
+                if (result22 !== null) {
+                  result3 = function(offset2, char) {
+                    return char == separator;
+                  }(pos, result22) ? "" : null;
+                  if (result3 !== null) {
+                    result4 = parse_field();
+                    if (result4 !== null) {
+                      result22 = [result22, result3, result4];
+                    } else {
+                      result22 = null;
+                      pos = pos3;
+                    }
+                  } else {
+                    result22 = null;
+                    pos = pos3;
+                  }
+                } else {
+                  result22 = null;
+                  pos = pos3;
+                }
+                if (result22 !== null) {
+                  result22 = function(offset2, char, text) {
+                    return text;
+                  }(pos2, result22[0], result22[2]);
+                }
+                if (result22 === null) {
+                  pos = pos2;
+                }
+                while (result22 !== null) {
+                  result1.push(result22);
+                  pos2 = pos;
+                  pos3 = pos;
+                  if (input.length > pos) {
+                    result22 = input.charAt(pos);
+                    pos++;
+                  } else {
+                    result22 = null;
+                    {
+                      matchFailed("any character");
+                    }
+                  }
+                  if (result22 !== null) {
+                    result3 = function(offset2, char) {
+                      return char == separator;
+                    }(pos, result22) ? "" : null;
+                    if (result3 !== null) {
+                      result4 = parse_field();
+                      if (result4 !== null) {
+                        result22 = [result22, result3, result4];
+                      } else {
+                        result22 = null;
+                        pos = pos3;
+                      }
+                    } else {
+                      result22 = null;
+                      pos = pos3;
+                    }
+                  } else {
+                    result22 = null;
+                    pos = pos3;
+                  }
+                  if (result22 !== null) {
+                    result22 = function(offset2, char, text) {
+                      return text;
+                    }(pos2, result22[0], result22[2]);
+                  }
+                  if (result22 === null) {
+                    pos = pos2;
+                  }
+                }
+                if (result1 !== null) {
+                  result22 = function(offset2, first, rest) {
+                    return !!first || rest.length;
+                  }(pos, result0, result1) ? "" : null;
+                  if (result22 !== null) {
+                    result0 = [result0, result1, result22];
+                  } else {
+                    result0 = null;
+                    pos = pos1;
+                  }
+                } else {
+                  result0 = null;
+                  pos = pos1;
+                }
+              } else {
+                result0 = null;
+                pos = pos1;
+              }
+              if (result0 !== null) {
+                result0 = function(offset2, first, rest) {
+                  rest.unshift(first);
+                  return rest;
+                }(pos0, result0[0], result0[1]);
+              }
+              if (result0 === null) {
+                pos = pos0;
+              }
+              return result0;
+            }
+            function parse_field() {
+              var result0, result1, result22;
+              var pos0, pos1, pos2;
+              pos0 = pos;
+              pos1 = pos;
+              if (input.charCodeAt(pos) === 34) {
+                result0 = '"';
+                pos++;
+              } else {
+                result0 = null;
+                {
+                  matchFailed('"\\""');
+                }
+              }
+              if (result0 !== null) {
+                result1 = [];
+                result22 = parse_char();
+                while (result22 !== null) {
+                  result1.push(result22);
+                  result22 = parse_char();
+                }
+                if (result1 !== null) {
+                  if (input.charCodeAt(pos) === 34) {
+                    result22 = '"';
+                    pos++;
+                  } else {
+                    result22 = null;
+                    {
+                      matchFailed('"\\""');
+                    }
+                  }
+                  if (result22 !== null) {
+                    result0 = [result0, result1, result22];
+                  } else {
+                    result0 = null;
+                    pos = pos1;
+                  }
+                } else {
+                  result0 = null;
+                  pos = pos1;
+                }
+              } else {
+                result0 = null;
+                pos = pos1;
+              }
+              if (result0 !== null) {
+                result0 = function(offset2, text) {
+                  return text.join("");
+                }(pos0, result0[1]);
+              }
+              if (result0 === null) {
+                pos = pos0;
+              }
+              if (result0 === null) {
+                pos0 = pos;
+                result0 = [];
+                pos1 = pos;
+                pos2 = pos;
+                if (/^[^\n\r]/.test(input.charAt(pos))) {
+                  result1 = input.charAt(pos);
+                  pos++;
+                } else {
+                  result1 = null;
+                  {
+                    matchFailed("[^\\n\\r]");
+                  }
+                }
+                if (result1 !== null) {
+                  result22 = function(offset2, char) {
+                    return char != separator;
+                  }(pos, result1) ? "" : null;
+                  if (result22 !== null) {
+                    result1 = [result1, result22];
+                  } else {
+                    result1 = null;
+                    pos = pos2;
+                  }
+                } else {
+                  result1 = null;
+                  pos = pos2;
+                }
+                if (result1 !== null) {
+                  result1 = function(offset2, char) {
+                    return char;
+                  }(pos1, result1[0]);
+                }
+                if (result1 === null) {
+                  pos = pos1;
+                }
+                while (result1 !== null) {
+                  result0.push(result1);
+                  pos1 = pos;
+                  pos2 = pos;
+                  if (/^[^\n\r]/.test(input.charAt(pos))) {
+                    result1 = input.charAt(pos);
+                    pos++;
+                  } else {
+                    result1 = null;
+                    {
+                      matchFailed("[^\\n\\r]");
+                    }
+                  }
+                  if (result1 !== null) {
+                    result22 = function(offset2, char) {
+                      return char != separator;
+                    }(pos, result1) ? "" : null;
+                    if (result22 !== null) {
+                      result1 = [result1, result22];
+                    } else {
+                      result1 = null;
+                      pos = pos2;
+                    }
+                  } else {
+                    result1 = null;
+                    pos = pos2;
+                  }
+                  if (result1 !== null) {
+                    result1 = function(offset2, char) {
+                      return char;
+                    }(pos1, result1[0]);
+                  }
+                  if (result1 === null) {
+                    pos = pos1;
+                  }
+                }
+                if (result0 !== null) {
+                  result0 = function(offset2, text) {
+                    return text.join("");
+                  }(pos0, result0);
+                }
+                if (result0 === null) {
+                  pos = pos0;
+                }
+              }
+              return result0;
+            }
+            function parse_char() {
+              var result0, result1;
+              var pos0, pos1;
+              pos0 = pos;
+              pos1 = pos;
+              if (input.charCodeAt(pos) === 34) {
+                result0 = '"';
+                pos++;
+              } else {
+                result0 = null;
+                {
+                  matchFailed('"\\""');
+                }
+              }
+              if (result0 !== null) {
+                if (input.charCodeAt(pos) === 34) {
+                  result1 = '"';
+                  pos++;
+                } else {
+                  result1 = null;
+                  {
+                    matchFailed('"\\""');
+                  }
+                }
+                if (result1 !== null) {
+                  result0 = [result0, result1];
+                } else {
+                  result0 = null;
+                  pos = pos1;
+                }
+              } else {
+                result0 = null;
+                pos = pos1;
+              }
+              if (result0 !== null) {
+                result0 = function(offset2) {
+                  return '"';
+                }();
+              }
+              if (result0 === null) {
+                pos = pos0;
+              }
+              if (result0 === null) {
+                if (/^[^"]/.test(input.charAt(pos))) {
+                  result0 = input.charAt(pos);
+                  pos++;
+                } else {
+                  result0 = null;
+                  {
+                    matchFailed('[^"]');
+                  }
+                }
+              }
+              return result0;
+            }
+            function cleanupExpected(expected) {
+              expected.sort();
+              var lastExpected = null;
+              var cleanExpected = [];
+              for (var i = 0; i < expected.length; i++) {
+                if (expected[i] !== lastExpected) {
+                  cleanExpected.push(expected[i]);
+                  lastExpected = expected[i];
+                }
+              }
+              return cleanExpected;
+            }
+            function computeErrorPosition() {
+              var line = 1;
+              var column = 1;
+              var seenCR = false;
+              for (var i = 0; i < Math.max(pos, rightmostFailuresPos); i++) {
+                var ch = input.charAt(i);
+                if (ch === "\n") {
+                  if (!seenCR) {
+                    line++;
+                  }
+                  column = 1;
+                  seenCR = false;
+                } else if (ch === "\r" || ch === "\u2028" || ch === "\u2029") {
+                  line++;
+                  column = 1;
+                  seenCR = true;
+                } else {
+                  column++;
+                  seenCR = false;
+                }
+              }
+              return { line, column };
+            }
+            var separator = ",";
+            var result2 = parseFunctions[startRule]();
+            if (result2 === null || pos !== input.length) {
+              var offset = Math.max(pos, rightmostFailuresPos);
+              var found = offset < input.length ? input.charAt(offset) : null;
+              var errorPosition = computeErrorPosition();
+              throw new this.SyntaxError(
+                cleanupExpected(rightmostFailuresExpected),
+                found,
+                offset,
+                errorPosition.line,
+                errorPosition.column
+              );
+            }
+            return result2;
+          },
+          /* Returns the parser source code. */
+          toSource: function() {
+            return this._source;
+          }
+        };
+        result.SyntaxError = function(expected, found, offset, line, column) {
+          function buildMessage(expected2, found2) {
+            var expectedHumanized, foundHumanized;
+            switch (expected2.length) {
+              case 0:
+                expectedHumanized = "end of input";
+                break;
+              case 1:
+                expectedHumanized = expected2[0];
+                break;
+              default:
+                expectedHumanized = expected2.slice(0, expected2.length - 1).join(", ") + " or " + expected2[expected2.length - 1];
+            }
+            foundHumanized = found2 ? quote(found2) : "end of input";
+            return "Expected " + expectedHumanized + " but " + foundHumanized + " found.";
+          }
+          this.name = "SyntaxError";
+          this.expected = expected;
+          this.found = found;
+          this.message = buildMessage(expected, found);
+          this.offset = offset;
+          this.line = line;
+          this.column = column;
+        };
+        result.SyntaxError.prototype = Error.prototype;
+        return result;
+      }();
+      {
+        if (module2.exports) {
+          exports3 = module2.exports = convert;
+        }
+        exports3.csv2json = convert;
+      }
+    }).call(commonjsGlobal);
+  })(csv2json$1, csv2json$1.exports);
+  var csv2jsonExports = csv2json$1.exports;
+  const csv2json = /* @__PURE__ */ getDefaultExportFromCjs(csv2jsonExports);
+  const defaultJSONColumnsNames = ["Nom", "Prénom", "Notes"];
+  let JSONColumnsNames = defaultJSONColumnsNames;
+  let listStudentsUnknown = [];
+  let listStudentsWithInvalidGrade = [];
+  const delay = (ms) => {
+    return new Promise((resolve) => setTimeout(resolve, ms));
+  };
+  const DOM = {
+    listGradesRows: Array.from(document.querySelectorAll("tr.etud_elem")),
+    formContainer: document.getElementById("tp-ext-form-container"),
+    maxGrade: document.querySelector(".tf-ro-field.formnote_bareme")
+  };
+  const listEmptyValues = ["", "abs", "exc"];
+  const fillGrades = async (listGrades, dom, maxGrade) => {
+    dom.uploadBtn.disabled = true;
+    const lastNameKey = JSONColumnsNames[0];
+    const firstNameKey = JSONColumnsNames[1];
+    const gradesKey = JSONColumnsNames[2];
+    const specialCharsRegex = /[\u0300-\u036f]/g;
+    for (const item of listGrades) {
+      await delay(0);
+      const currentStudentRow = dom.listGradesRows.find((el) => {
+        const studentNameCell = el.getElementsByClassName("tf-fieldlabel")[0];
+        if (!studentNameCell) {
+          return;
+        }
+        const cellText = studentNameCell.textContent.normalize("NFD").replaceAll(specialCharsRegex, "").replaceAll("-", " ").toLowerCase();
+        const cleanedLastName = item[lastNameKey].normalize("NFD").replaceAll(specialCharsRegex, "").replaceAll("-", " ").toLowerCase();
+        const cleanedFirstName = item[firstNameKey].normalize("NFD").replaceAll(specialCharsRegex, "").replaceAll("-", " ").toLowerCase();
+        const isFirstNameMatched = cleanedFirstName.split(" ").some((_item) => cellText.includes(_item));
+        const isLastNameMatched = cleanedLastName.split(" ").some((_item) => cellText.includes(_item));
+        return isFirstNameMatched && isLastNameMatched;
+      });
+      if (!currentStudentRow) {
+        listStudentsUnknown.push(
+          `${item[lastNameKey].toUpperCase()} ${item[firstNameKey]}`
+        );
+        continue;
+      }
+      const currentStudentRowInput = currentStudentRow.querySelector(
+        'input[class^="note"]'
+      );
+      if (currentStudentRowInput) {
+        const formattedGrade = String(item[gradesKey]).replace(",", ".");
+        const isNotAValidGrade = Number.isNaN(Number(formattedGrade));
+        const isAValidGrade = !isNotAValidGrade;
+        const grade = isNotAValidGrade ? item[gradesKey] : Number(formattedGrade);
+        currentStudentRowInput.focus();
+        if (isAValidGrade && (listEmptyValues.includes(currentStudentRowInput.value.trim().toLowerCase()) || grade > currentStudentRowInput.value)) {
+          currentStudentRowInput.value = grade;
+          if (grade > maxGrade || grade < 0) {
+            listStudentsWithInvalidGrade.push(
+              `${item[lastNameKey].toUpperCase()} ${item[firstNameKey]}`
+            );
+          }
+        }
+        currentStudentRowInput.setAttribute("data-modified", true);
+        write_on_blur == null ? void 0 : write_on_blur(currentStudentRowInput);
+        currentStudentRowInput.style.backgroundColor = "#DAEBD6B9";
+      }
+    }
+  };
+  const resetTpl = () => {
+    document.querySelector("#grades_file").value = "";
+    DOM.firstStep.style.display = "block";
+    DOM.resetContainer.style.display = "none";
+  };
+  const isScodocMaxGradeMatchWithFileMaxGrade = (dom) => {
+    var _a, _b;
+    const scodocMaxGrade = Number(((_a = dom.maxGrade.textContent.match(/\d+(\.\d+)?/)) == null ? void 0 : _a[0]) || 20);
+    const fileGradeCol = JSONColumnsNames.find(
+      (item) => item.toLowerCase().includes("note")
+    ).replace(",", ".");
+    const fileMaxGrade = (_b = fileGradeCol.match(/\d+(\.\d+)?/)) == null ? void 0 : _b[0];
+    return {
+      isMatching: true,
+      scodocMaxGrade,
+      fileMaxGrade
+    };
+  };
+  const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
+    const file = evtFile.target.files[0];
+    const name2 = file.name;
+    const lastDot = name2.lastIndexOf(".");
+    const listAllowedFormats = ["csv"];
+    const ext = name2.substring(lastDot + 1);
+    if (!listAllowedFormats.includes(ext)) {
+      alert(
+        `Votre fichier n'est pas au format ${listAllowedFormats.join(
+          " ou "
+        )}`
+      );
+      return;
+    }
+    const reader = new FileReader();
+    reader.onload = (eRaw) => {
+      try {
+        new TextDecoder("utf8", { fatal: true }).decode(eRaw.target.result);
+      } catch (e) {
+        alert(
+          "Votre fichier doit être encodé en UTF-8. Veuillez effectuer ce changement."
+        );
+        resetTpl();
+        return;
+      }
+      console.log("fefefe 114");
+      reader.readAsText(file);
+      reader.onload = async (e) => {
+        let listGrades = csv2json(e.target.result, {
+          parseNumbers: true
+        });
+        if (listGrades.some((item) => Object.keys(item).length !== 3)) {
+          alert("Votre fichier ne contient pas que trois colonnes.");
+          return;
+        }
+        JSONColumnsNames = Object.keys(listGrades[0]);
+        const gradesComparisonInfos = isScodocMaxGradeMatchWithFileMaxGrade(dom);
+        listStudentsUnknown = [];
+        await fillGrades(listGrades, dom, gradesComparisonInfos.scodocMaxGrade);
+        const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']");
+        const studentsUnknownContainer = document.querySelector("[data-unknown-students]");
+        const listStudentsUnknownDOM = studentsUnknownContainer.querySelector("ul");
+        listStudentsUnknownDOM.replaceChildren();
+        const nbUnknownStudents = document.querySelector("[data-nb-unknown-students]");
+        nbUnknownStudents.textContent = listStudentsUnknown.length;
+        if (listStudentsUnknown.length > 0) {
+          studentsUnknownContainer.style.display = "";
+          listStudentsUnknown.forEach((_item) => {
+            const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
+            unknownStudentTpl.querySelector("li").textContent = _item;
+            listStudentsUnknownDOM.append(unknownStudentTpl);
+          });
+        } else {
+          studentsUnknownContainer.style.display = "none";
+        }
+        const studentsWithInvalidGradeContainer = document.querySelector("[data-invalid-grades]");
+        const listStudentsWithInvalidGradeDOM = studentsWithInvalidGradeContainer.querySelector("ul");
+        listStudentsWithInvalidGradeDOM.replaceChildren();
+        const nbInvalidGradeStudents = document.querySelector("[data-nb-invalid-grade-students]");
+        nbInvalidGradeStudents.textContent = listStudentsWithInvalidGrade.length;
+        if (listStudentsWithInvalidGrade.length > 0) {
+          studentsWithInvalidGradeContainer.style.display = "";
+          listStudentsWithInvalidGrade.forEach((_item) => {
+            const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
+            unknownStudentTpl.querySelector("li").textContent = _item;
+            listStudentsWithInvalidGradeDOM.append(unknownStudentTpl);
+          });
+        } else {
+          studentsWithInvalidGradeContainer.style.display = "none";
+        }
+        Array.from(document.querySelectorAll(".note")).forEach(
+          (input) => {
+            if (listEmptyValues.includes(input.value.trim().toLowerCase())) {
+              input.value = valForMissingGrade;
+            }
+          }
+        );
+        DOM.uploadBtn.disabled = false;
+        DOM.firstStep.style.display = "none";
+        DOM.resetContainer.style.display = "block";
+      };
+    };
+    reader.readAsArrayBuffer(file);
+  };
+  const delegateEvtHandler = (el, evt, sel, handler) => {
+    el.addEventListener(evt, function(event) {
+      let t = event.target;
+      while (t && t !== this) {
+        if (t.matches(sel)) {
+          handler.call(t, event);
+        }
+        t = t.parentNode;
+      }
+    });
+  };
+  const forceSave = () => {
+    document.querySelectorAll("[data-etudid]").forEach((item) => {
+      item.setAttribute("data-modified", "true");
+      write_on_blur == null ? void 0 : write_on_blur(item);
+    });
+  };
+  const formTpl = `<style>\r
     .tp-ext-form-container {\r
         font-family: Helvetica, Arial, sans-serif;\r
         position: fixed;\r
@@ -129,12 +1122,6 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
         border: none;\r
     }\r
 \r
-    .tp-force-save-note {\r
-        display: block;\r
-        font-size: 0.85rem;\r
-        font-weight: bold;\r
-    }\r
-\r
     .tp-label {\r
         display: flex;\r
         gap: 0.6rem;\r
@@ -147,6 +1134,10 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
 \r
     .tp-list-infos {\r
         margin-top: 0.35rem;\r
+    }\r
+\r
+    .tp-small-text {\r
+        font-size: 0.85rem;\r
     }\r
 </style>\r
 <form enctype="multipart/form-data; charset=utf-8">\r
@@ -235,14 +1226,25 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
 \r
         <div data-restart-upload-container>\r
             <p class="tp-ext-valid-file">Fichier valide. Notes intégrées.</p>\r
-            <details style="margin-bottom: 1rem">\r
+            <details style="margin-bottom: 1rem" data-unknown-students>\r
                 <summary>\r
                     Liste des étudiants inconnus (<span\r
                         data-nb-unknown-students\r
                     ></span\r
                     >)\r
                 </summary>\r
-                <ul class="tp-list-infos" data-list-unknown-students=""></ul>\r
+                <ul class="tp-list-infos"></ul>\r
+            </details>\r
+\r
+            <details style="margin-bottom: 1rem" data-invalid-grades>\r
+                <summary>\r
+                    Liste des étudiants avec note incorrecte (<span\r
+                        data-nb-invalid-grade-students\r
+                    ></span\r
+                    >)\r
+                </summary>\r
+                <p class="tp-small-text">Ces étudiants ont une note inférieure à 0 ou supérieure à la note maximale définie</p>\r
+                <ul class="tp-list-infos"></ul>\r
             </details>\r
 \r
             <button type="button" class="tp-upload-btn" data-restart>\r
@@ -258,4 +1260,110 @@ Soit votre évaluation n'a pas la bonne note maximale sur ScoDoc soit vous n'ent
 <template data-template-id="unknown-student">\r
     <li></li>\r
 </template>\r
-`,de={name:"scodoc-remplisseur-automatique-notes",version:"1.3.0",description:"",main:"src/index.js",scripts:{build:"vite build",start:"vite",dev:"vite",release:"standard-version"},keywords:[],author:"",license:"ISC",devDependencies:{"csvjson-csv2json":"^5.0.6",encoding:"^0.1.13","standard-version":"^9.5.0",vite:"^4.4.11"},"standard-version":{scripts:{precommit:"vite build"}}};let Z=!1;const fe=()=>Z,W=o=>Z=o;(async function(){if(A.listGradesRows.length===0&&!A.formContainer)return;document.getElementsByTagName("body")[0].insertAdjacentHTML("beforeend",ce),A.dragAndDropArea=document.querySelector("[data-drag-n-drop-area]"),A.resetContainer=document.querySelector("[data-restart-upload-container]"),A.firstStep=document.querySelector("[data-first-step]"),A.uploadBtn=document.querySelector("[data-upload-btn]"),A.resetContainer.style.display="none",document.querySelector("[data-project-name]").textContent+=` v${de.version}`,await Promise.resolve().then(()=>pe),K(document,"change","#grades_file",m=>{document.querySelectorAll("[data-etudid]").forEach(v=>{v.style.backgroundColor=""});const N=document.querySelector('input[name="empty_val"]:checked').value||"ABS";ie({target:m,valForMissingGrade:N,dom:A})}),K(document,"click","[data-restart]",()=>{W(!1),J()}),K(document,"click","[data-force-save]",()=>{ue()})})();const X=document.querySelector("[data-drag-n-drop-area]");["dragend","dragleave"].forEach(o=>{X.addEventListener(o,m=>{m.preventDefault(),m.currentTarget.querySelector(".tp-upload-btn").classList.remove("over"),m.currentTarget.classList.remove("over")})}),X.addEventListener("dragover",o=>{o.preventDefault(),o.currentTarget.querySelector(".tp-upload-btn").classList.add("over"),o.currentTarget.classList.add("over")}),X.addEventListener("drop",o=>{o.preventDefault(),o.currentTarget.querySelector(".tp-upload-btn").classList.remove("over"),o.currentTarget.classList.remove("over"),o.dataTransfer.items&&[...o.dataTransfer.items].forEach((m,N)=>{if(m.kind==="file"){W(!0);const v=o.currentTarget.querySelector("input[type='file']");v.setAttribute("files",o.dataTransfer.files),v.files=o.dataTransfer.files,v.dispatchEvent(new Event("change",{bubbles:!0}))}})});const pe=Object.freeze(Object.defineProperty({__proto__:null},Symbol.toStringTag,{value:"Module"}));O.hasUsedDnDrop=fe,O.setHasUsedDnDrop=W,Object.defineProperty(O,Symbol.toStringTag,{value:"Module"})});
+`;
+  const name = "scodoc-remplisseur-automatique-notes";
+  const version = "1.3.0";
+  const description = "";
+  const main = "src/index.js";
+  const scripts = {
+    build: "vite build",
+    start: "vite",
+    dev: "vite",
+    release: "standard-version"
+  };
+  const keywords = [];
+  const author = "";
+  const license = "ISC";
+  const devDependencies = {
+    "csvjson-csv2json": "^5.0.6",
+    encoding: "^0.1.13",
+    "standard-version": "^9.5.0",
+    vite: "^4.4.11"
+  };
+  const packageJSON = {
+    name,
+    version,
+    description,
+    main,
+    scripts,
+    keywords,
+    author,
+    license,
+    devDependencies,
+    "standard-version": {
+      scripts: {
+        precommit: "vite build"
+      }
+    }
+  };
+  let _hasUsedDnDrop = false;
+  const hasUsedDnDrop = () => _hasUsedDnDrop;
+  const setHasUsedDnDrop = (val) => _hasUsedDnDrop = val;
+  (async function() {
+    if (DOM.listGradesRows.length === 0 && !DOM.formContainer) {
+      return;
+    }
+    const body = document.getElementsByTagName("body")[0];
+    body.insertAdjacentHTML("beforeend", formTpl);
+    DOM.dragAndDropArea = document.querySelector("[data-drag-n-drop-area]");
+    DOM.resetContainer = document.querySelector("[data-restart-upload-container]");
+    DOM.firstStep = document.querySelector("[data-first-step]");
+    DOM.uploadBtn = document.querySelector("[data-upload-btn]");
+    DOM.resetContainer.style.display = "none";
+    document.querySelector("[data-project-name]").textContent += ` v${packageJSON.version}`;
+    await Promise.resolve().then(() => dragAndDrop);
+    delegateEvtHandler(document, "change", "#grades_file", (e) => {
+      document.querySelectorAll("[data-etudid]").forEach((item) => {
+        item.style.backgroundColor = "";
+      });
+      const valForMissingGrade = document.querySelector('input[name="empty_val"]:checked').value || "ABS";
+      manageFileUpload({
+        target: e,
+        valForMissingGrade,
+        dom: DOM
+      });
+    });
+    delegateEvtHandler(document, "click", "[data-restart]", () => {
+      setHasUsedDnDrop(false);
+      resetTpl();
+    });
+    delegateEvtHandler(document, "click", "[data-force-save]", () => {
+      forceSave();
+    });
+  })();
+  const dragAndDropArea = document.querySelector("[data-drag-n-drop-area]");
+  ["dragend", "dragleave"].forEach((event) => {
+    dragAndDropArea.addEventListener(event, (e) => {
+      e.preventDefault();
+      e.currentTarget.querySelector(".tp-upload-btn").classList.remove("over");
+      e.currentTarget.classList.remove("over");
+    });
+  });
+  dragAndDropArea.addEventListener("dragover", (e) => {
+    e.preventDefault();
+    e.currentTarget.querySelector(".tp-upload-btn").classList.add("over");
+    e.currentTarget.classList.add("over");
+  });
+  dragAndDropArea.addEventListener("drop", (e) => {
+    e.preventDefault();
+    e.currentTarget.querySelector(".tp-upload-btn").classList.remove("over");
+    e.currentTarget.classList.remove("over");
+    if (e.dataTransfer.items) {
+      [...e.dataTransfer.items].forEach((file, i) => {
+        if (file.kind === "file") {
+          setHasUsedDnDrop(true);
+          const input = e.currentTarget.querySelector("input[type='file']");
+          input.setAttribute("files", e.dataTransfer.files);
+          input.files = e.dataTransfer.files;
+          input.dispatchEvent(new Event("change", { "bubbles": true }));
+        }
+      });
+    }
+  });
+  const dragAndDrop = /* @__PURE__ */ Object.freeze(/* @__PURE__ */ Object.defineProperty({
+    __proto__: null
+  }, Symbol.toStringTag, { value: "Module" }));
+  exports2.hasUsedDnDrop = hasUsedDnDrop;
+  exports2.setHasUsedDnDrop = setHasUsedDnDrop;
+  Object.defineProperty(exports2, Symbol.toStringTag, { value: "Module" });
+});
