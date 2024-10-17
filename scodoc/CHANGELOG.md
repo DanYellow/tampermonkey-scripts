@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.3.0...v) (2024-10-17)
+
+
+### Features
+
+* Show when grades are greater than the maximal value ([3ff35f1](https://github.com/DanYellow/tampermonkey-scripts/commit/3ff35f1a733cd8df22213c1176147d383d81b69f))
+
 ## [1.3.0](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.2.0...v1.3.0) (2024-10-16)
 
 
