@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.6.0-scodoc](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.5.0-scodoc...v1.6.0-scodoc) (2024-10-22)
+
+
+### Features
+
+* Send to server fallback input value ([4430a75](https://github.com/DanYellow/tampermonkey-scripts/commit/4430a758ede8cb35ea0acbb07a325ad568b642b5))
+
 ## [1.5.0-scodoc](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.4.0-scodoc...v1.5.0-scodoc) (2024-10-17)
 
 ## [1.4.0](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.3.0...v1.4.0) (2024-10-17)
