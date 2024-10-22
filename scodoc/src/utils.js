@@ -15,7 +15,14 @@ const DOM = {
     maxGrade: document.querySelector('.tf-ro-field.formnote_bareme'),
 };
 
-const listEmptyValues = ["", "abs", "exc"]
+const listEmptyValues = ["", "abs", "exc"];
+
+const callScodocAPI = (input) => {
+    // For scodoc' script
+    input.setAttribute("data-modified", true)
+    // function from scodoc
+    write_on_blur?.(input)
+}
 
 const fillGrades = async (listGrades, dom, maxGrade) => {
     dom.uploadBtn.disabled = true;
@@ -101,13 +108,10 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
                         `${item[lastNameKey].toUpperCase()} ${item[firstNameKey]}`
                     )
                 }
-            }
 
-            // For scodoc' script
-            currentStudentRowInput.setAttribute("data-modified", true)
-            // function from scodoc
-            write_on_blur?.(currentStudentRowInput)
-            // currentStudentRowInput.style.backgroundColor = "#DAEBD6B9";
+                callScodocAPI(currentStudentRowInput);
+            }
+            
         }
     }
 };
@@ -197,7 +201,6 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
                 studentsUnknownContainer.style.display = 'none';
             }
 
-            
             const studentsWithInvalidGradeContainer = document.querySelector('[data-invalid-grades]');
             const listStudentsWithInvalidGradeDOM = studentsWithInvalidGradeContainer.querySelector('ul');
             listStudentsWithInvalidGradeDOM.replaceChildren();
@@ -220,6 +223,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
                 input => {
                     if(listEmptyValues.includes(input.value.trim().toLowerCase())) {
                         input.value = valForMissingGrade;
+                        callScodocAPI(input);
                     }
                 }
             );
