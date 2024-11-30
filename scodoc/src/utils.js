@@ -5,10 +5,6 @@ let JSONColumnsNames = defaultJSONColumnsNames;
 let listStudentsUnknown = [];
 let listStudentsWithInvalidGrade = [];
 
-const delay = ms => {
-    return new Promise(resolve => setTimeout(resolve, ms));
-};
-
 const DOM = {
     listGradesRows: Array.from(document.querySelectorAll('tr.etud_elem')),
     formContainer: document.getElementById('tp-ext-form-container'),
@@ -35,7 +31,6 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
     const specialCharsRegex = /[\u0300-\u036f]/g;
 
     for (const item of listGrades) {
-        await delay(0);
         const currentStudentRow = dom.listGradesRows.find(el => {
             const studentNameCell =
                 el.getElementsByClassName('tf-fieldlabel')[0];
