@@ -86,7 +86,7 @@
             position: absolute;
         }
 
-        &:not(:has([disabled])) {
+        &:not(:has([inert])) {
             &:hover,
             &:focus-within,
             &.over {
@@ -94,6 +94,10 @@
                     from var(--bg-color) display-p3 r calc(g - 0.15) calc(b - 0.15)
                 );
             }
+        }
+
+        &:where([inert]) {
+            opacity: 0.7;
         }
     }
 

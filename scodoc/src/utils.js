@@ -25,7 +25,7 @@ const callScodocAPI = (input) => {
 }
 
 const fillGrades = async (listGrades, dom, maxGrade) => {
-    dom.uploadBtn.disabled = true;
+    dom.uploadBtn.inert = true;
 
     // File headers
     const lastNameKey = JSONColumnsNames[0];
@@ -227,7 +227,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
                     }
                 }
             );
-            DOM.uploadBtn.disabled = false;
+            DOM.uploadBtn.inert = false;
             DOM.firstStep.style.display = 'none';
             DOM.resetContainer.style.display = 'block';
         };
