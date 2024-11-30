@@ -70,9 +70,10 @@
         }
     }
 
-    .tp-upload-btn {
+    .tp-primary-btn {
+        --bg-color: hsl(224.3, 76.3%, 48%);
         padding: 0.5rem 1rem;
-        background-color: rgb(29 78 216);
+        background-color: var(--bg-color);
         color: white;
         border-radius: 0.5rem;
         position: relative;
@@ -89,7 +90,9 @@
             &:hover,
             &:focus-within,
             &.over {
-                filter: brightness(80%);
+                background-color: color(
+                    from var(--bg-color) display-p3 r calc(g - 0.15) calc(b - 0.15)
+                );
             }
         }
     }
@@ -199,7 +202,7 @@
             <div data-drag-n-drop-area class="tp-upload-area">
                 <p>Glissez-déposez votre fichier csv</p>
                 <p>ou</p>
-                <label id="grades_field" class="tp-upload-btn">
+                <label id="grades_field" class="tp-primary-btn">
                     <span>Sélectionnez un fichier csv</span>
                     <input
                         type="file"
@@ -241,7 +244,7 @@
                 <ul class="tp-list-infos"></ul>
             </details>
 
-            <button type="button" class="tp-upload-btn" data-restart>
+            <button type="button" class="tp-primary-btn" data-restart>
                 Recommencer
             </button>
             <!-- 
