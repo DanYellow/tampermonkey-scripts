@@ -15,9 +15,11 @@ const listEmptyValues = ["", "abs", "exc"];
 
 const callScodocAPI = (input) => {
     // For scodoc' script
-    input.setAttribute("data-modified", true)
+    input.setAttribute("data-modified", true);
     // function from scodoc
-    write_on_blur?.(input)
+    if (typeof write_on_blur !== 'undefined') {
+        write_on_blur(input);
+    }
 }
 
 const fillGrades = async (listGrades, dom, maxGrade) => {
@@ -89,10 +91,10 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
             // currentStudentRowInput.focus();
 
             if (
-                isAValidGrade && 
+                isAValidGrade &&
                 (
                     listEmptyValues.includes(currentStudentRowInput.value.trim().toLowerCase()) ||
-                    (grade > currentStudentRowInput.value && grade <= maxGrade) || 
+                    (grade > currentStudentRowInput.value && grade <= maxGrade) ||
                     currentStudentRowInput.value > maxGrade
                 )
             ) {
@@ -106,7 +108,7 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
 
                 callScodocAPI(currentStudentRowInput);
             }
-            
+
         }
     }
 };
@@ -177,19 +179,19 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
             listStudentsWithInvalidGrade = [];
             await fillGrades(listGrades, dom, gradesComparisonInfos.scodocMaxGrade);
             const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']");
-            
+
             const studentsUnknownContainer = document.querySelector('[data-unknown-students]');
             const listStudentsUnknownDOM = studentsUnknownContainer.querySelector('ul');
             listStudentsUnknownDOM.replaceChildren();
             const nbUnknownStudents = document.querySelector('[data-nb-unknown-students]');
             nbUnknownStudents.textContent = listStudentsUnknown.length
-           
+
             if (listStudentsUnknown.length > 0) {
                 studentsUnknownContainer.style.display = '';
                 listStudentsUnknown.forEach((_item) => {
                     const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
                     unknownStudentTpl.querySelector("li").textContent = _item;
-                    
+
                     listStudentsUnknownDOM.append(unknownStudentTpl)
                 })
             } else {
@@ -207,7 +209,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
                 listStudentsWithInvalidGrade.forEach((_item) => {
                     const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
                     unknownStudentTpl.querySelector("li").textContent = _item;
-                    
+
                     listStudentsWithInvalidGradeDOM.append(unknownStudentTpl)
                 })
             } else {
