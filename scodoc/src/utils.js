@@ -19,10 +19,12 @@ const callScodocAPI = (input) => {
     // function from scodoc
     if (typeof write_on_blur !== 'undefined') {
         write_on_blur(input);
+    } else if (import.meta.env.DEV) {
+        console.log("Call write_on_blur")
     }
 }
 
-const fillGrades = async (listGrades, dom, maxGrade) => {
+const fillGrades = async (listGrades, dom, maxGrade, missingGradeValue = "ABS") => {
     dom.uploadBtn.inert = true;
 
     // File headers
@@ -80,22 +82,24 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
         const currentStudentRowInput = currentStudentRow.querySelector(
             'input[class^="note"]'
         );
-        if (currentStudentRowInput) {
-            const formattedGrade = String(item[gradesKey]).replace(',', '.');
-            const isNotAValidGrade = Number.isNaN(Number(formattedGrade));
-            const isAValidGrade = !isNotAValidGrade;
 
-            const grade = isNotAValidGrade
-                ? item[gradesKey]
-                : Number(formattedGrade);
-            // currentStudentRowInput.focus();
+        if (currentStudentRowInput && item[gradesKey]) {
+            let grade = missingGradeValue;
+            const formattedGrade = String(item[gradesKey]).replace(',', '.');
+            const isANumber = !Number.isNaN(Number(formattedGrade));
+
+            if (item[gradesKey] !== "" && isANumber) {
+                grade = Number(formattedGrade);
+            }
 
             if (
-                isAValidGrade &&
+                currentStudentRowInput.value.trim() === "" ||
                 (
-                    listEmptyValues.includes(currentStudentRowInput.value.trim().toLowerCase()) ||
-                    (grade > currentStudentRowInput.value && grade <= maxGrade) ||
-                    currentStudentRowInput.value > maxGrade
+                    isANumber && (
+                        listEmptyValues.includes(currentStudentRowInput.value.trim().toLowerCase()) ||
+                        (grade > currentStudentRowInput.value && grade <= maxGrade) ||
+                        currentStudentRowInput.value > maxGrade
+                    )
                 )
             ) {
                 currentStudentRowInput.value = grade;
@@ -108,7 +112,6 @@ const fillGrades = async (listGrades, dom, maxGrade) => {
 
                 callScodocAPI(currentStudentRowInput);
             }
-
         }
     }
 };
@@ -177,7 +180,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
 
             listStudentsUnknown = [];
             listStudentsWithInvalidGrade = [];
-            await fillGrades(listGrades, dom, gradesComparisonInfos.scodocMaxGrade);
+            await fillGrades(listGrades, dom, gradesComparisonInfos.scodocMaxGrade, valForMissingGrade);
             const unknownStudentTplRaw = document.querySelector("[data-template-id='unknown-student']");
 
             const studentsUnknownContainer = document.querySelector('[data-unknown-students]');
@@ -192,7 +195,7 @@ const manageFileUpload = ({ target: evtFile, valForMissingGrade, dom }) => {
                     const unknownStudentTpl = unknownStudentTplRaw.content.cloneNode(true);
                     unknownStudentTpl.querySelector("li").textContent = _item;
 
-                    listStudentsUnknownDOM.append(unknownStudentTpl)
+                    listStudentsUnknownDOM.append(unknownStudentTpl);
                 })
             } else {
                 studentsUnknownContainer.style.display = 'none';
