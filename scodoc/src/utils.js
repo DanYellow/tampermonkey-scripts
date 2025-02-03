@@ -44,7 +44,7 @@ const fillGrades = async (listGrades, dom, maxGrade, missingGradeValue = "ABS") 
             }
 
             // Data from scodoc
-            const cellText = studentNameCell.textContent
+            const cellText = studentNameCell.innerText
                 .normalize('NFD')
                 .replaceAll(specialCharsRegex, '')
                 .replaceAll('-', ' ')
@@ -61,12 +61,8 @@ const fillGrades = async (listGrades, dom, maxGrade, missingGradeValue = "ABS") 
                 .replaceAll('-', ' ')
                 .toLowerCase();
 
-            const isFirstNameMatched = cleanedFirstName
-                .split(' ')
-                .some(_item => cellText.includes(_item));
-            const isLastNameMatched = cleanedLastName
-                .split(' ')
-                .some(_item => cellText.includes(_item));
+            const isFirstNameMatched = cellText.includes(cleanedFirstName);
+            const isLastNameMatched = cellText.includes(cleanedLastName);
 
             return isFirstNameMatched && isLastNameMatched;
         });
