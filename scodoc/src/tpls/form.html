@@ -1,12 +1,18 @@
 <style>
+    :root {
+        --tamper-white: oklch(100% 0 0);
+        --tamper-black: oklch(11.76% 0.0242 0);
+        --tamper-primary-cta-bg-color: oklch(48.78% 0.217 264.39);
+    }
+
     .tp-ext-form-container {
         font-family: Helvetica, Arial, sans-serif;
         position: fixed;
-        background-color: white;
+        background-color: var(--tamper-white);
         top: 12px;
         right: 10px;
         padding: 1.5em;
-        border: 2px solid #333333;
+        border: 2px solid oklch(32.11% 0 0);
         max-width: 450px;
         overflow: hidden;
         border-radius: 0.35rem;
@@ -29,7 +35,7 @@
         width: auto;
         font-size: 1.05rem;
         padding: 0 0.5rem;
-        background-color: white;
+        background-color: var(--tamper-white);
     }
 
     .tp-ext-valid-file {
@@ -58,7 +64,7 @@
     .tp-upload-area {
         text-align: center;
         padding: 0.75rem;
-        border: 2px dashed black;
+        border: 2px dashed var(--tamper-black);
         border-radius: 0.35rem;
 
         &.over {
@@ -71,10 +77,9 @@
     }
 
     .tp-primary-btn {
-        --bg-color: hsl(224.3, 76.3%, 48%);
         padding: 0.5rem 1rem;
-        background-color: var(--bg-color);
-        color: white;
+        background-color: var(--tamper-primary-cta-bg-color);
+        color: var(--tamper-white);
         border-radius: 0.5rem;
         position: relative;
         border: none;
@@ -90,9 +95,7 @@
             &:hover,
             &:focus-within,
             &.over {
-                background-color: color(
-                    from var(--bg-color) display-p3 r calc(g - 0.15) calc(b - 0.15)
-                );
+                background-color: oklch(from var(--tamper-primary-cta-bg-color) calc(l * .75) c h);
             }
         }
 
@@ -109,8 +112,8 @@
 
     .tp-secondary-btn {
         padding: 0.5rem 1rem;
-        background-color: rgb(223, 223, 223);
-        color: black;
+        background-color: oklch(93.4% 0 0);
+        color: var(--tamper-black);
         border-radius: 0.5rem;
         display: none;
         border: none;
@@ -251,7 +254,7 @@
             <button type="button" class="tp-primary-btn" data-restart>
                 Recommencer
             </button>
-            <!-- 
+            <!--
             <button type="button" class="tp-secondary-btn" data-force-save>
                 Forcer l'enregistrement
             </button> -->
