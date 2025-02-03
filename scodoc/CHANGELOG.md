@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [1.7.1-scodoc](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.7.0-scodoc...v1.7.1-scodoc) (2025-02-03)
+
+
+### Bug Fixes
+
+* Scodoc - Fix string match for student's data ([b5ef48d](https://github.com/DanYellow/tampermonkey-scripts/commit/b5ef48d870b06d28ab2f90c44013929f205fb6e5))
+
 ## [1.7.0-scodoc](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.6.0...v1.7.0-scodoc) (2025-02-03)
 
 ## [1.6.0](https://github.com/DanYellow/tampermonkey-scripts/compare/v1.6.0-scodoc...v1.6.0) (2025-02-03)
